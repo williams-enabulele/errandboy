@@ -1,0 +1,60 @@
+
+<nz-layout>
+    <nz-sider nzCollapsible nzWidth="200px">
+        <div class="logo"></div>
+        <ul nz-menu nzMode="inline" nzTheme="light" [nzInlineCollapsed]="isCollapsed" class="menu-style">
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Dashboard' : ''"
+                nzSelected routerLinkActive="active" routerLink="/drivers/dashboard">
+                <i nz-icon nzType="dashboard"></i>
+                <span>Dashboard</span>
+            </li>
+            <li nz-submenu nzTitle="drivers" nzIcon="snippets">
+                <ul>
+
+                    <!-- <li nz-menu-item routerLinklictive="active" routerLink="/drivers/customers">Customers</li> -->
+                    <li nz-menu-item routerLinkActive="active" routerLink="/drivers/profile">My Profile</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/drivers/change">Change Password</li>
+                  
+                    <!-- <li nz-menu-item routerLinkActive="active" routerLink="/drivers/users-details">Users Details</li> -->
+                    <!-- <li nz-submenu nzTitle="Submenu">
+                            <ul>
+                                <li nz-menu-item>Option 7</li>
+                                <li nz-menu-item>Option 8</li>
+                            </ul>
+                        </li> -->
+                </ul>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+            <div class="d-flex justify-content-between align-items-center">
+                <h3>ErrandBoy Services</h3>
+                <nz-button-group>
+                    <button nz-button (click)="logout()">Signout</button>
+                    <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                        <i nz-icon nzType="user"></i>
+                    </button>
+                </nz-button-group>
+                <nz-dropdown-menu #menu2="nzDropdownMenu">
+                    <ul nz-menu>
+
+                        <li nz-menu-item  class="d-flex justify-content-center "><ngx-avatar name="{{firstname}}"> </ngx-avatar></li> 
+                        <li nz-menu-item class="text-center">{{firstname}}</li>
+                        <li nz-menu-item >UID: {{driver_id}}</li>
+                        <li nz-menu-item routerLinkActive="active" routerLink="/drivers/profile">Profile</li>
+                    </ul>
+                </nz-dropdown-menu>
+
+
+            </div>
+        </nz-header>
+        <nz-content>
+            <div class="inner-content">
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+        <nz-footer>ErrandBoy Services ©{{year}} </nz-footer>
+    </nz-layout>
+</nz-layout>
+

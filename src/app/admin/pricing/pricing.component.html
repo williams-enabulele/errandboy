@@ -1,0 +1,202 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Pricing</li>
+    </ol>
+</nav>
+<div class="container ">
+
+    <div class="row d-flex justify-content-sm-center bg-white p-5">
+        <div class="col-sm-12">
+            <div class="row d-flex justify-content-sm-center">
+                <div>
+                    <button class="btn btn-lg btn-primary mt-3 mb-3" (click)="open(addPricingModal)">Add
+                        Pricing</button>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Base Price</th>
+                                <th scope="col">Price Per Mile</th>
+                                <th scope="col">Service</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let price of pricing  | paginate: { itemsPerPage: 10, currentPage: p }">
+                                <th scope="row">{{price.id}}</th>
+                                <td>{{price.base_price}}</td>
+                                <td>{{price.per_mile}}</td>
+                                <td>{{price.title}}</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="control buttons">
+                                        <button type="button" class="btn btn-primary" (click)="open(editPricing)"
+                                            (click)="getPriceById(price.id)">Edit</button>
+                                        <button type="button" class="btn btn-danger"
+                                            [swal]="['Hold on!', 'Sure you want to delete?', 'warning']"
+                                            (confirm)="deletePrice(price.id)">Delete</button>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!--Add Serveice Modal-->
+<ng-template #addPricingModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">ADD PRICING</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row d-flex justify-content-sm-center bg-white p-3">
+
+            <div class="col-sm-12">
+                <form [formGroup]="addPriceForm" (ngSubmit)="addPrice()" (ngSubmit)="addPriceForm.reset()"
+                    (ngSubmit)="d('Cross click')">
+                    <div class="form-group row mt-2">
+                        <div class="col-sm-12">
+                            <label for="base_price">Base Price</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input formControlName="base_price" type="text" class="form-control form-control-lg"
+                                    [ngClass]="{ 'is-invalid': displayError && formControls.base_price.errors, 'is-valid': formControls.base_price.valid }"
+                                    (blur)="displayError=true" placeholder="Base Price">
+
+                            </div>
+
+
+                            <div *ngIf="displayError && formControls.base_price.errors" class="invalid-feedback">
+                                <div *ngIf="formControls.base_price.errors.required">Enter Base Price to Proceed</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label for="services">Errand Service</label>
+                            <select class="form-control form-control-lg" formControlName="service" #service
+                                [ngClass]="{ 'is-invalid': displayError && formControls.service.errors, 'is-valid': formControls.service.valid }"
+                                (blur)="displayError=true">
+                                <option value="">Select service ...</option>
+                                <option *ngFor="let service of services" [value]="service.id">{{service.title}}
+                                </option>
+                            </select>
+                            <div *ngIf="displayError && formControls.service.errors" class="invalid-feedback">
+                                <div *ngIf="formControls.service.errors.required ">Select service to proceed</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$/mi</span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" placeholder="Price Per Mile"
+                                formControlName="per_mile" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && formControls.per_mile.errors, 'is-valid': formControls.per_mile.valid }">
+                        </div>
+
+
+                        <div *ngIf="displayError && formControls.per_mile.errors" class="invalid-feedback">
+                            <div *ngIf="formControls.per_mile.errors.required ">Enter price per mile to proceed</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-block btn-lg btn-primary"
+                                [disabled]="addPriceForm.invalid">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!--Modal  Edit Service template-->
+<ng-template #editPricing let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">EDIT PRICING</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="row d-flex justify-content-sm-center bg-white p-5">
+
+
+            <div class="col-sm-12">
+                <div class="d-flex justify-content-sm-center mt-195 mb-195" *ngIf="loading">
+                    <div class="spinner-border text-center text-success" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="showEditValues">
+                    <form (ngSubmit)="updatePrice(f)" (ngSubmit)="d('Cross click')" #f="ngForm">
+                        <div class="form-group row mt-2">
+                            <div class="col-sm-12">
+                                <label for="base_price">Base Price</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="this.editPriceById.base_price" name="base_price" id="base_price">
+                                </div>
+                                <input type="hidden" [(ngModel)]="this.editPriceById.id" name="id" id="id">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <label for="services">Errand Service</label>
+                                <div class="form-control form-control-lg" readonly>
+                                    <p>{{this.editPriceById.title}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <div class="col-sm-12">
+                                <label for="pricepermile">Price Per Mile</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$/mi</span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="this.editPriceById.per_mile" id="per_mile" name="per_mile">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-block btn-lg btn-primary" [disabled]="f.invalid">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+<ngx-alerts></ngx-alerts>

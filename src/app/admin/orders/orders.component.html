@@ -1,0 +1,42 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Orders</li>
+    </ol>
+</nav>
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        <div class="bg-white table-responsive p-5  mb-3">
+            <table class="table table-striped p-3">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Services</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let o of orders | paginate: { itemsPerPage: 10, currentPage: p }">
+                        <th scope="row"><a [routerLink]="['/admin/order',o.id]">{{o.order_no}}</a></th>
+                        <td scope="row">{{o.title}}</td>
+                        <td scope="row">{{o.cost | currency:'USD'}}</td>
+                        <td scope="row">{{o.created | date:'medium'}}</td>
+                        <td scope="row">{{o.status}}</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+
+    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+</div>
+<!-- end row -->

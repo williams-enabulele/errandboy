@@ -1,0 +1,107 @@
+
+
+.bg-img {
+  background-image: url("/assets/images/store-purchase.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 640px;
+  z-index: -10; /* necessary? is this positioned relative or absolute elsewhere? */
+ position: relative;
+}
+
+.bg-img::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+ 
+  background: rgba(30, 91, 247, 0.727);
+  z-index: -9 /*Moved one position above the -10 */
+}
+
+.testimonial {
+  font-family: "Montserrat", sans-serif;
+	color: #ff0039;
+  font-weight: 300;
+}
+
+.testimonial h1, .testimonial h2, .testimonial h3, .testimonial h4, .testimonial h5, .testimonial h6 {
+  color: #ff0039;
+}
+
+.testimonial .bg-light {
+    background-color: #f4f8fa !important;
+}
+
+.testimonial h5 {
+	line-height: 30px;
+	font-size: 18px;
+}
+
+.testimonial .font-13 {
+	font-size: 13px;
+}
+
+.testimonial .card.card-shadow {
+    -webkit-box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+    box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+}
+
+.testimonial .card::after {
+  position: absolute;
+  bottom: -15px;
+  left: 35px;
+  content: '';
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #ffffff;
+}
+
+.testimonial .owl-theme .owl-dots .owl-dot.active span,
+.testimonial .owl-theme .owl-dots .owl-dot:hover span {
+  background: #188ef4;
+}
+
+.testimonial .owl-dots {
+  position: absolute;
+  left: -108%;
+  top: 70%;
+}
+
+.testimonial .devider {
+  height: 2px;
+  width: 40px;
+}
+
+.testimonial .bg-info {
+    background-color: #188ef4 !important;
+}
+
+.testimonial .customer-thumb img {
+  width: 60px;
+}
+
+.card {
+  border:none;
+  box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+}
+
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #0880f8;
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: white;
+    border: 0;
+}
+

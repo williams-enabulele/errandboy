@@ -1,0 +1,80 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Services</li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row justify-content-sm-center p-5 bg-white">
+        <div class="col-sm-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Services</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let service of services | paginate: { itemsPerPage: 10, currentPage: p } ">
+                        <td>{{service.id}}</td>
+                        <td>{{service.title}}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                <button class="btn btn-primary" (click)="open(editServices)"
+                                    (click)="getServiceById(service.id)">Edit</button>
+                                <button class="btn btn-danger" (click)="deleteServiceById(service.id)"
+                                    disabled>Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+    <ng-template #editServices let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">EDIT SERVICES</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="row d-flex justify-content-sm-center bg-white p-5">
+                <div class="col-sm-12">
+                    <div class="d-flex justify-content-sm-center mt-195 mb-195" *ngIf="loading">
+                        <div class="spinner-border text-center text-success" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <div *ngIf="showEditValues">
+                        <form (ngSubmit)="updateService(f)" (ngSubmit)="d('Cross click')" #f="ngForm">
+                            <div class="form-group row mt-2">
+                                <div class="col-sm-12">
+                                    <label for="title">Services</label>
+                                    <textarea class="form-control form-control-lg" [(ngModel)]="this.editValues.title"
+                                        name="title" id="title"></textarea>
+
+                                    <input type="hidden" [(ngModel)]="this.editValues.id" name="id" id="id">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-block btn-lg btn-primary"
+                                        [disabled]="f.invalid">Update</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+    <ngx-alerts></ngx-alerts>
+
+
+</div>

@@ -1,0 +1,36 @@
+.jumbotron{
+    margin-top: 0em;
+}
+.text{
+    font-weight: 400;
+    color: #FFEB3B;
+    text-decoration: none;
+}
+.btn-link:hover{
+    color: rgb(251, 255, 6);
+}
+
+
+
+::ng-deep   .card {
+  border: none;
+}
+
+::ng-deep  .card-header {
+  margin-top: 0.75em !important;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+::ng-deep .card .card-header button.btn.btn-link.collapsed{
+    text-decoration: none !important;
+    color: beige;
+}
+
+::ng-deep .card .card-header button.btn.btn-link{
+    text-decoration: none !important;
+    color: rgb(13, 39, 113);
+}
+::ng-deep .card-block {
+  text-align: left;
+}
+

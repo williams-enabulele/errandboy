@@ -1,0 +1,23 @@
+
+<div class="container mt-5">
+    <div class="container">
+        <h3 class="display-4 text-center">Errandboy Services</h3>
+        <h5 class="text-center"><i>Bring convenience to your doorstep</i></h5>
+    </div>
+    <div class="row justify-content-sm-center">
+        <div class="col-sm-12  ">
+            <ngb-accordion [closeOthers]="true" activeIds="1" class="m-5">
+                <ngb-panel id="{{faq.id}}" title={{faq.question}} type="primary" cardClass="text"
+                    *ngFor="let faq of faqs">
+                    <ng-template ngbPanelContent>
+                        <h5><span class="label label-primary">Answer</span></h5>
+                        <p>{{faq.answer}}</p>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+
+    </div>
+
+
+</div>

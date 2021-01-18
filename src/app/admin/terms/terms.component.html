@@ -1,0 +1,151 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Terms and Condition</li>
+    </ol>
+</nav>
+
+<div class="container">
+
+    <div class="row d-flex justify-content-sm-center bg-white p-5">
+        <div class="col-sm-12">
+
+            <div>
+                <button class="btn btn-lg btn-primary mt-3 mb-3" (click)="open(addtermsModal)">Add
+                    terms</button>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">title</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let term of terms | paginate: { itemsPerPage: 10, currentPage: p }">
+                            <th scope="row">{{term.id}}</th>
+                            <td>{{term.title}}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="control buttons">
+                                    <button type="button" class="btn btn-primary" (click)="open(editterms)"
+                                        (click)="gettermsById(term.id)">Edit</button>
+                                    <button type="button" class="btn btn-danger"
+                                        [swal]="['Hold on!', 'Sure you want to delete?', 'warning']"
+                                        (confirm)="deleteterms(term.id)">Delete</button>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Add Serveice Modal-->
+<ng-template #addtermsModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">ADD TERMS AN CONDITIONS</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row d-flex justify-content-sm-center bg-white p-1">
+            <div class="col-sm-12">
+                <form (ngSubmit)="addterms(g)" #g="ngForm" (ngSubmit)="d('Cross click')">
+                    <div class="form-group row mt-2">
+                        <div class="col-sm-12">
+                            <label for="title">title</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" placeholder="title"
+                                    [(ngModel)]="title" name="title">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+
+                            <label>content</label>
+                            <div class="form-group">
+                                <textarea [(ngModel)]="content" class="form-control form-control-lg "
+                                    name="content"></textarea>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-block btn-lg btn-primary" [disabled]="c.invalid">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<!--Modal  Edit Service template-->
+<ng-template #editterms let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">EDIT TERMS AND CONDITIONS</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="row d-flex justify-content-sm-center bg-white p-1">
+
+
+            <div class="col-sm-12">
+
+                <div *ngIf="showEditValues">
+                    <form (ngSubmit)="updateterms(f)" (ngSubmit)="d('Cross click')" #f="ngForm">
+                        <div class="form-group row mt-2">
+                            <div class="col-sm-12">
+                                <label for="title">title</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="this.edittermsById.title" name="title" id="title">
+                                </div>
+                                <input type="hidden" [(ngModel)]="this.edittermsById.id" name="id" id="id">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>content</label>
+                                    <textarea [(ngModel)]="this.edittermsById.content" class="form-control"
+                                        name="content" id="content"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-block btn-lg btn-primary" [disabled]="f.invalid">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+
+
+<ngx-alerts></ngx-alerts>

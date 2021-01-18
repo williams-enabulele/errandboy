@@ -1,0 +1,140 @@
+<nav aria-label="breadcrumb" style="margin-top:100px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/account/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page"> Orders History</li>
+    </ol>
+</nav>
+
+
+<div class="receipt-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="invoice-wrapper" id="htmlData" #htmlData>
+                    <div class="intro">
+
+                        This is the order for :<br> {{datas.title}}
+                    </div>
+
+                    <div class="payment-info">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span>Order No.</span>
+                                <strong>{{datas.order_no}}</strong>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <span>Order Date</span>
+                                <strong>{{datas.created | date: 'medium'}}</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-details">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span>Pick up Details</span>
+                                <strong>
+                                    {{datas.pickup_name}}
+                                </strong>
+                                <p>
+                                    {{datas.originAddress}} <br>
+                                    <strong>Booked Date | Time :</strong> <br>
+                                    {{datas.pickup_date}} | {{datas.time}}<br>
+                                    <a href="tel:datas.phone">
+                                        +1{{datas.phone}}
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <span>Dropoff Details</span>
+                                <strong>
+                                    {{datas.dropoff_name}}
+                                </strong>
+                                <p>
+                                    {{datas.destinationAddress}} <br>
+                                    <strong>Time | Distance :</strong> <br>
+                                    {{datas.duration}} | {{datas.location_distance}}<br>
+                                    <strong>Status:</strong><br>
+                                    {{datas.status}} <br>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line-items">
+                        <div class="headers clearfix" *ngIf="showItems">
+                            <div class="row">
+                                <div class="col-sm-4">Description</div>
+                                <div class="col-sm-3">Quantity</div>
+                                <div class="col-sm-5 text-right">Amount</div>
+                            </div>
+                        </div>
+                        <div class="items" *ngIf="showItems">
+                            <div class="row item" *ngFor="let item of items">
+                                <div class="col-sm-4 desc">
+                                    {{item.item}} | {{item.brand}}
+                                </div>
+                                <div class="col-sm-3 qty">
+                                    {{item.quantity}}
+                                </div>
+                                <div class="col-sm-5 amount text-right">
+                                    ${{item.price}}
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="total text-right">
+                            <p class="extra-notes">
+                                <strong>Extra Notes</strong>
+                                {{datas.instructions}}
+                            </p>
+                            <div *ngIf="showTotal">
+                                <div class="field">
+                                    Subtotal <span>${{subTotal}}</span>
+                                </div>
+                                <div class="field grand-total">
+                                    Total <span>${{total}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" d-flex justify-content-center mt-5" *ngIf="showCancelBtn">
+                    <button class="btn btn-danger" (click)="open(cancel)">
+                        <i class="fa fa-times"></i>
+                        Cancel Order
+                    </button>
+                </div>
+                <div class="print d-flex justify-content-center mt-5">
+                    <button class="btn btn-primary" printSectionId="print-section" (click)="genPDF()">
+                        <i class="fa fa-print"></i>
+                        Download Order | PDF
+                    </button>
+                </div>
+
+                <div class="footer">
+                    Copyright © 2020. ErrandBoy Services
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add Serveice Modal-->
+<ng-template #cancel let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <button type="button" class="btn" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="row d-flex justify-content-sm-center bg-white p-1">
+            <div class="col-sm-12">
+               <p class="text-danger text-center">Are you sure you want to cancel order ?</p>
+               <p class="text-center">Refunds will be processed and sent to you within 7 days</p>
+               <button class="btn btn-lg btn-danger text-center" (click)="cancelOrder()">Cancel Order</button>
+            
+            </div>
+        </div>
+    </div>
+</ng-template>
+

@@ -1,0 +1,54 @@
+
+<div class="container mt-5">
+    <div class="container">
+        <h3 class="display-4 text-center">TERMS AND CONDITIONS</h3>
+    </div>
+    <div class="row justify-content-sm-center">
+        <div class="col-sm-10 d-block justify-content-center">
+            <p class="text-center"><i>Agreement between User and www.errandboyservices.com</i></p>
+        </div>
+        <div class="col-sm-12">
+            <p class="text-left">Welcome to www.errandboyservices.com. This website is comprised of various web pages
+                operated by Errandboyservices LLC.
+                www.errandboyservices.com is offered to you conditioned on your acceptance without modification of the
+                terms,
+                conditions, and notices contained herein (the "Terms"). Your use of our website constitutes your
+                agreement to all such
+                Terms. Please read these terms carefully and keep a copy of them for your reference.<br>
+
+                www.errandboyservices.com is an E-Commerce website.<br>
+
+                The purpose of our website is to provide a platform where individuals and businesses can access pickup
+                and delivery
+                services, such as prescriptions pickup and delivery, laundry or dry cleaning pickup and drop-off, bakery
+                pickup and
+                delivery, store pickup or purchase and delivery, catering pickup and delivery, and mail or package
+                pickup and delivery.
+                Fee charged depends on the type of services ordered and will be processed electronically using a
+                third-party software.
+                Some services may require us to charge an estimated amount at the time of checkout and charge the total
+                cost after
+                completion. A user is required to create an account in order to use the service provided through our
+                website. One-time
+                authentication text messages and email verification will be sent to the contact information provided at
+                the time of
+                registration.
+
+            </p>
+        </div>
+
+    </div>
+    <div class="row justify-content-sm-center">
+        <div class="col-sm-12  ">
+            <ngb-accordion [closeOthers]="true" activeIds="static-1" class="m-5">
+                <ngb-panel id={{term.id}} title={{term.title}} type="primary" cardClass="text"
+                    *ngFor="let term of terms">
+                    <ng-template ngbPanelContent>{{term.content}}</ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+
+    </div>
+
+
+</div>

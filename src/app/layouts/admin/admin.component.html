@@ -1,0 +1,88 @@
+<nz-layout>
+    <nz-sider nzCollapsible nzWidth="200px">
+        <div class="logo"></div>
+        <ul nz-menu nzMode="inline" nzTheme="light" [nzInlineCollapsed]="isCollapsed" class="menu-style overflow-auto">
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Dashboard' : ''"
+                nzSelected routerLinkActive="active" routerLink="/admin/dashboard">
+                <i nz-icon nzType="dashboard"></i>
+                <span>Dashboard</span>
+            </li>
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed? 'Orders':''"
+                routerLinkActive="active" routerLink="/admin/orders">
+                <i nz-icon nzType="book"></i><span>Orders</span>
+
+            </li>
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed? 'Transactions':''"
+                routerLinkActive="active" routerLink="/admin/transactions">
+                <i nz-icon nzType="credit-card"></i><span>Transactions</span>
+
+            </li>
+
+            <li nz-submenu nzTitle="Actions" nzIcon="snippets">
+                <ul>
+
+                    <!-- <li nz-menu-item routerLinklictive="active" routerLink="/admin/customers">Customers</li> -->
+                    <li nz-menu-item routerLinkActive="active" routerLink="/admin/assign">Assign Driver</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/admin/drivers">Add Users</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/admin/users">Accounts</li>
+                    <!-- <li nz-menu-item routerLinkActive="active" routerLink="/admin/users-details">Users Details</li> -->
+                    <!-- <li nz-submenu nzTitle="Submenu">
+                            <ul>
+                                <li nz-menu-item>Option 7</li>
+                                <li nz-menu-item>Option 8</li>
+                            </ul>
+                        </li> -->
+                </ul>
+            </li>
+            <li nz-submenu nzTitle="Page Reviews" nzIcon="form">
+                <ul>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/admin/faq">FAQ</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/admin/terms">Terms</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/admin/privacy">Privacy</li>
+                </ul>
+            </li>
+            <li nz-submenu nzTitle="Settings" nzIcon="setting">
+                <ul>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/admin/pricing">Billing</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/admin/coupons">Offers</li>
+                    <!-- <li nz-menu-item routerLinkActive="active" routerLink="/admin/add-errands">Add Service</li> -->
+                    <li nz-menu-item routerLinkActive="active" routerLink="/admin/errands">Services</li>
+                </ul>
+            </li>
+        </ul>
+
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+            <div class="d-flex justify-content-between align-items-center">
+                <h3>ErrandBoy Services</h3>
+                <nz-button-group>
+                    <button nz-button (click)="logout()">Signout</button>
+                    <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                        <i nz-icon nzType="user"></i>
+                    </button>
+                </nz-button-group>
+                <nz-dropdown-menu #menu2="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item  class="d-flex justify-content-center "><ngx-avatar name="{{firstname}}"> </ngx-avatar></li> 
+                        <li nz-menu-item class="text-center">{{firstname}}</li>
+                        <li nz-menu-item >UID: {{admin_id}}</li>
+                        <li nz-menu-item routerLinkActive="active" routerLink="/admin/profile">Profile</li>
+                        <li nz-menu-item routerLinkActive="active" routerLink="/admin/change-password">Change Password</li>
+                    </ul>
+                </nz-dropdown-menu>
+
+
+            </div>
+        </nz-header>
+        <nz-content>
+            <div class="inner-content">
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+        <nz-footer>ErrandBoy Services ©{{year}} </nz-footer>
+    </nz-layout>
+</nz-layout>
+
+
+

@@ -1,0 +1,195 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Delegate Orders Fulfilment</li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 mx-auto">
+
+            <form class="form-inline">
+                <select class="custom-select my-1 mr-sm-4" id="inlineFormCustomSelectPref"
+                    (change)="filter($event.target.value)" name="filter">
+                    <option>Filter</option>
+                    <option value="7">Week</option>
+                    <option value="30">Month</option>
+                    <option value="365">Year</option>
+                </select>
+                <input type="text" class="form-control" placeholder="Search">
+                <button type="submit" class="btn btn-primary ml-2 my-1">Submit</button>
+            </form>
+
+        </div>
+    </div>
+    <div class="row" *ngIf="showSpinner " style="margin-top:35px">
+        <div class="col-sm-12 d-flex justify-content-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showAfterLoading">
+        <div class="row col mt-5 mb-2">
+            <button class="btn  btn-outline btn-lg btn-primary" (click)="open(addAssignModal)">Assign
+                Drivers</button>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Drivers</th>
+                            <th scope="col">Order Id</th>
+                            <th scope="col">Date:Time</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of datas | paginate: { itemsPerPage: 10, currentPage: p }">
+
+                            <td>{{data.first_name}}</td>
+                            <td>{{data.order_id}}</td>
+                            <td>{{data.created | date:'medium'}} </td>
+                            <td>{{data.status}}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="control buttons">
+                                    <!--  <button type="button" class="btn btn-primary" (click)="assigned_one(data.id)"
+                                        (click)="open(editAssign)">Edit</button> -->
+                                    <button type="button" class="btn btn-danger"
+                                        [swal]="['Hold on!', 'Sure you want to delete?', 'warning']"
+                                        (click)="deleteAssign(data.id)">Delete</button>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <ng-template #addAssignModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Assign Errands to Drivers</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row d-flex justify-content-sm-center bg-white p-3">
+
+                <div class="col-sm-12">
+                    <form #f="ngForm" (ngSubmit)="d('Cross click')">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Drivers</label>
+                                <select class="form-control mb-1" name="drivers" ngModel>
+                                    <option value="">...</option>
+                                    <option value="{{driver.id}}" *ngFor="let driver of drivers">{{driver.firstname}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Orders</label>
+                                <select class="form-control mb-1" name="ord" [(ngModel)]="ord" (change)="display(ord)">
+                                    <option value="">...</option>
+                                    <option value='{
+	"orders": "<strong>Service:</strong><br>{{order.service}}<br><strong>From:</strong><br>{{order.from}}<br><strong>To:</strong><br>{{order.to}}<br><strong>Time:</strong><br>{{order.time_selected}}<br><strong>Status:</strong><br>{{order.status}}",
+	"id": "{{order.id}}"
+}' *ngFor="let order of orders">{{order.status}}: {{order.service}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-12" *ngIf="show">
+                                <p class="p-3"
+                                    style="white-space: normal; word-wrap:break-word; background-color:rgb(246, 255, 247); color:rgb(117, 145, 172)"
+                                    [innerHTML]="selected"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Status</label>
+                                <select class="form-control mb-1 " name="status" ngModel>
+                                    <option value="">...</option>
+                                    <option value="{{status.id}}" *ngFor="let status of statuss">{{status.status}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-block btn-lg btn-primary" (click)="addAssign(f)"
+                                    [disabled]="f.invalid">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <!--Modal  Edit Service template-->
+    <ng-template #editAssign let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Update Errand Assignment</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form #e="ngForm">
+                <div class="row d-flex justify-content-sm-center bg-white p-3">
+                    <div class="col-sm-12">
+                        <div class="d-flex justify-content-sm-center mt-195 mb-195" *ngIf="loading">
+                            <div class="spinner-border text-center text-success" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <select class="form-control mb-1" name="drivers" ngModel>
+                                    <option value="">Drivers</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <select class="form-control mb-1" name="orders" ngModel>
+                                    <option value="">Orders</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <select class="form-control mb-1" name="status" ngModel>
+                                    <option value="">Status</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-block btn-lg btn-primary"
+                                    [disabled]="editAssignForm.invalid">Update</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,62 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">A/c Manager</li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row table-responsive">
+        <div class="col-sm-12">
+            <div class="alert alert-success" role="alert" *ngIf="success">
+                Successfully Done!
+                <button type="button" class="btn" data-dismiss="alert" aria-label="Close" >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <table class="table table-light ">
+                <thead class="thead-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email|Phone</th>
+                        <th>Role</th>
+                        <th>Created</th>
+                       
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of datas | paginate: { itemsPerPage: 10, currentPage: p }">
+                        <td scope="row"><a [routerLink]="['/admin/users',data.id]">{{data.id}}</a>
+                        </td>
+                        <td><a [routerLink]="['/admin/users',data.id]">{{data.firstname}}</a></td>
+                        <td>{{data.username}}</td>
+                        <td>{{data.role}}</td>
+                        <td scope="row">{{data.joined | date:'medium'}}</td>
+                        <td scope="row">
+                            <select class="form-control" (change)="onChange(status)" #status>
+                                <option value="data.account_status">{{data.account_status}}</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Suspended">Suspended</option>
+                                <option value="Active">Active</option>
+
+                            </select>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                              
+                                <a  class="btn btn-primary" (click)="change_astatus(data.id)">change</a>
+                                <a href="#" class="btn btn-danger" (click)="delete_user(data.id)">delete</a>
+                              </div>
+                        </td>
+
+                    </tr>
+
+                    
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+</div>

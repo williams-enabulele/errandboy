@@ -1,0 +1,73 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Service</li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="margin_t mb-5">
+        <form [formGroup]="addService">
+            <div class="row form-group justify-content-sm-center ">
+                <div class="col-sm-8">
+                    <label class="text-muted">Title</label>
+                    <input type="text" class="form-control form-control-lg" formControlName="title"
+                        placeholder="Service Name">
+                </div>
+            </div>
+            <div class="row form-group justify-content-sm-center ">
+                <div class="col-sm-8">
+                    <label class="text-muted">Excerpt</label>
+                    <textarea class="form-control form-control-lg" formControlName="excerpt"
+                        placeholder="Excerpt"></textarea>
+                </div>
+            </div>
+            <div class="row form-group justify-content-sm-center ">
+                <div class="col-sm-8">
+                    <label class="text-muted">Description</label>
+                    <textarea class="form-control form-control-lg" formControlName="description"
+                        placeholder="Description"></textarea>
+                </div>
+            </div>
+
+            <div class="row form-group justify-content-sm-center" *ngIf="!imgURL">
+                <div class="col-sm-8">
+                    <label class="text-muted">Service Image</label>
+                    <img src="assets/images/placeholder.png" class="mb-1" style="with:400px; height:auto;">
+                    <label for="upload">
+                        <em class="las la-caret-square-up text-primary"> Upload Image</em>
+                        <input #file type="file" id="upload" name="image" accept='image/*'
+                            (change)="preview(file.files)" formControlName="image" style="display: none;" />
+                    </label>
+
+                </div>
+            </div>
+            <div class="row form-group justify-content-sm-center" *ngIf="imgURL">
+                <div class="col-sm-8">
+                    <img [src]="imgURL" class="mb-1" style="width:400px; height:auto">
+                    <!-- Progress Bar -->
+                    <div class="progress form-group" *ngIf="progress > 0">
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                            [style.width.%]="progress">
+                        </div>
+                    </div>
+
+                    <label for="upload">
+                        <em class="las la-exchange-alt text-primary"> Change Image</em>
+                        <input #file type="file" id="upload" name="image" accept='image/*'
+                            (change)="preview(file.files)" formControlName="image" style="display: none;" />
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="row justify-content-sm-center mt-40 mb-10">
+                <div class="col-sm-8 ">
+                    <button type="button" class="btn btn-primary btn-lg mr-1" [disabled]="" (click)="addErrand()"
+                        awNextStep>
+                        <span *ngIf="loading" class="spinner-grow spinner-grow-sm text-light"></span>Submit</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

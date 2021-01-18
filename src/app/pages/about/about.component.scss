@@ -1,0 +1,16 @@
+p {
+    opacity: .9;
+}
+
+.text-danger{
+    opacity: .7;
+}
+.card {
+    border: none;
+    margin-bottom: 30px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    transition: width 2s linear 1s;
+}

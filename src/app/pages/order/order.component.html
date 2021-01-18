@@ -1,0 +1,216 @@
+<div class="jumbotron jumbotron-fluid " style="margin-top: -45px;">
+    <div class="container">
+        <h1 class=" text-center">PLACE YOUR ORDER
+        </h1>
+        <h5 class="text-center">Bring convenience to your doorstep</h5>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form [formGroup]="laundryForm" (ngSubmit)="onSubmit()">
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Options</legend>
+                        <div class="col-sm-10">
+                            <div class="custom-control custom-radio">
+                                <input formControlName="tofro" class="custom-control-input" type="radio"
+                                    formControlName="tofro">
+                                <label class="custom-control-label">Pickup from home and drop off to dry cleaner/laundry
+                                    and pick up
+                                    from dry cleaner /laundry and drop off to home</label>
+                            </div>
+                            <div class="custom-control">
+                                <input formControlName="to" class="custom-control-input" type="radio"
+                                    formControlName="to">
+                                <label class="custom-control-label">Pick up from home and drop off at dry
+                                    cleaner/laundry
+                                    only</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input formControlName="fro" class="custom-control-input" type="radio"
+                                    formControlName="fro">
+                                <label class="custom-control-label">Pickup from dry cleaner/laundry and drop off at home
+                                    only</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- Pick up Address-->
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="datetime">Pickup Date</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_date.errors }">
+                            <input formControlName="p_date" type="date" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.p_date.errors" class="help-block">
+                            <div *ngIf="formControls.p_date.errors.required">Pick up Date is required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="pkg">Pickup time</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_time.errors }">
+                            <input formControlName="p_time" type="time" class="form-control form-control-lg"></p>
+                        <div *ngIf="isSubmitted && formControls.p_time.errors" class="help-block">
+                            <div *ngIf="formControls.p_time.errors.required">Pick up Time is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="fullname">Fullname</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_name.errors }">
+                            <input formControlName="p_name" type="text" class="form-control form-control-lg"></p>
+                        <div *ngIf="isSubmitted && formControls.p_name.errors" class="help-block">
+                            <div *ngIf="formControls.p_name.errors.required">Fullname is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <label for="address">Address</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_address.errors }">
+                            <input formControlName="p_address" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.p_address.errors" class="help-block">
+                            <div *ngIf="formControls.p_address.errors.required">Address is required</div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="address">Apt | Suite | floor</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_apt.errors }">
+                            <input formControlName="p_apt" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.p_apt.errors" class="help-block">
+                            <div *ngIf="formControls.p_apt.errors.required">Apt | Suite | floor is required</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="city">City | Town | Village</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_city.errors }">
+                            <input formControlName="p_city" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.p_city.errors" class="help-block">
+                            <div *ngIf="formControls.p_city.errors.required">City | Town | Village is required</div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="state">State</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_state.errors }">
+                            <input formControlName="p_state" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.p_state.errors" class="help-block">
+                            <div *ngIf="formControls.p_state.errors.required">State is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="country">Country</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_country.errors }">
+                            <input formControlName="p_country" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.p_country.errors" class="help-block">
+                            <div *ngIf="formControls.p_country.errors.required">Country is required</div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="zip_code">Zip code</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_zip.errors }">
+                            <input formControlName="p_zip" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.p_zip.errors" class="help-block">
+                            <div *ngIf="formControls.p_zip.errors.required">Zip code is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drop off Address-->
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="businessName">Name of Dry Cleaner | Laundry</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.d_name.errors }">
+                            <input formControlName="d_name" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.d_name.errors" class="help-block">
+                            <div *ngIf="formControls.d_name.errors.required">Name of Dry Cleaner | Laundry is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <label for="address">Address</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.d_address.errors }">
+                            <input formControlName="d_address" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.d_address.errors" class="help-block">
+                            <div *ngIf="formControls.d_address.errors.required">Address is required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="address">Apt | Suite | floor</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.d_apt.errors }">
+                            <input formControlName="d_apt" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.d_apt.errors" class="help-block">
+                            <div *ngIf="formControls.d_apt.errors.required">Apt | Suite | floor is required</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="city">City | Town | Village</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.d_city.errors }">
+                            <input formControlName="d_city" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.d_city.errors" class="help-block">
+                            <div *ngIf="formControls.d_city.errors.required">City is required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="state">State</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.d_state.errors }">
+                            <input formControlName="d_state" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.d_state.errors" class="help-block">
+                            <div *ngIf="formControls.d_state.errors.required">State is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="country">Country</label>
+                        <p [ngClass]="{ 'has-error': isSubmitted && formControls.d_country.errors }">
+                            <input formControlName="d_country" type="text" class="form-control form-control-lg">
+                        </p>
+                        <div *ngIf="isSubmitted && formControls.d_country.errors" class="help-block">
+                            <div *ngIf="formControls.d_country.errors.required">Country is required</div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="zip_code">Zip code</label>
+                        <input formControlName="d_zip" type="text" class="form-control form-control-lg">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="s_instruct"></label>
+                    <textarea class="form-control" fomControlName="sinstruct"></textarea>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>

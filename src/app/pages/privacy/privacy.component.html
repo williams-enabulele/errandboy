@@ -1,0 +1,33 @@
+
+<div class="container mt-5">
+    <div class="container">
+        <h3 class="display-4 text-center">PRIVACY POLICY</h3>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Protecting your private information is our priority. This Statement of Privacy applies to
+                www.errandboyservices.com and
+                Errandboyservices LLC and governs data collection and usage. For the purposes of this Privacy Policy,
+                unless otherwise
+                noted, all references to Errandboyservices LLC include www.errandboyservices.com.
+                Www.errandboyservices.com is an
+                ecommerce website. By using the website, you consent to the data practices described in this statement.
+
+            </p>
+        </div>
+
+    </div>
+    <div class="row justify-content-sm-center">
+        <div class="col-sm-12">
+            <ngb-accordion [closeOthers]="true" activeIds="1" class="m-5">
+                <ngb-panel id={{privacy.id}} title={{privacy.title}} *ngFor="let privacy of privacies" type="primary"
+                    cardClass="text">
+                    <ng-template ngbPanelContent>{{privacy.content}}</ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+
+    </div>
+
+
+</div>

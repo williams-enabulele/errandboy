@@ -1,0 +1,118 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" routerLink="/"><img src="assets/images/errand-boy-logo.png" alt="logo"
+            style="width: 150px;"></a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" aria-controls="navbarColor01"
+        [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" (click)="isDrivers = !isDrivers" role="button"
+                    aria-haspopup="true" [attr.aria-expanded]="!isDrivers"><em class="las la-user-friends"></em>
+                    Drivers</a>
+                <div class="dropdown-menu" [ngbCollapse]="isDrivers">
+                    <a class="dropdown-item text-primary" routerLink="/auth/signin">Add Driver</a>
+                    <a class="dropdown-item text-primary" routerLink="/auth/signup">All Drivers</a>
+                    <a class="dropdown-item text-primary" routerLink="/auth/signup">Assign Driver</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" (click)="isOrders = !isOrders" role="button"
+                    aria-haspopup="true" [attr.aria-expanded]="!isOrders"><em class="las la-cart-plus"></em> Orders</a>
+                <div class="dropdown-menu" [ngbCollapse]="isOrders">
+                    <a class="dropdown-item text-primary" routerLink="/auth/signin">Orders</a>
+                    <a class="dropdown-item text-primary" routerLink="/auth/signup">Signup</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" (click)="isServices = !isServices" role="button"
+                    aria-haspopup="true" [attr.aria-expanded]="!isServices"> <em class="las la-people-carry"></em>
+                    Services</a>
+                <div class="dropdown-menu" [ngbCollapse]="isServices">
+                    <a class="dropdown-item text-primary" routerLink="/admin/add-errand">Add Service</a>
+                    <a class="dropdown-item text-primary" routerLink="/admin/errands">Services</a>
+                    <a class="dropdown-item text-primary" routerLink="/auth/signup">All Services</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" (click)="isCustomers = !isCustomers" role="button"
+                    aria-haspopup="true" [attr.aria-expanded]="!isCustomers"><em class="las la-users"></em>
+                    Customers</a>
+                <div class="dropdown-menu" [ngbCollapse]="isCustomers">
+                    <a class="dropdown-item text-primary" routerLink="/auth/signin">All Customers</a>
+                    <a class="dropdown-item text-primary" routerLink="/auth/signup">Signup</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" (click)="isSettings = !isSettings" role="button"
+                    aria-haspopup="true" [attr.aria-expanded]="!isServices"><em class="las la-tasks"></em> Settings</a>
+                <div class="dropdown-menu" [ngbCollapse]="isSettings">
+                    <a class="dropdown-item text-primary" routerLink="/admin/payment-structure">Payment Structure</a>
+                    <a class="dropdown-item text-primary" routerLink="/admin/add-coupon">Add Coupon</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+
+
+<nav class="p-2" style="">
+    <div class="d-flex justify-content-between align-items-center ">
+        <a routerLink="/"><img src="assets/images/errand-boy-logo.png" alt="logo" style="width: 150px;"></a>
+
+        <div>
+            <a><em class="las la-user-friends pl-3"></em>
+                Users</a>
+            <a>
+                <em class="las la-user-friends"></em>
+                Drivers</a>
+
+        </div>
+    </div>
+</nav>
+<nav class="pl-4 pr-4 pt-1 pb-1 bg-primary ">
+    <div class=" d-flex justify-content-between align-items-center row col">
+        <div class="nav-item">Dashboard</div>
+
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" (click)="isDrivers = !isDrivers" role="button"
+                aria-haspopup="true" [attr.aria-expanded]="!isDrivers"><em class="las la-user-friends"></em>
+                Drivers</a>
+            <div class="dropdown-menu" [ngbCollapse]="isDrivers">
+
+                <a class="dropdown-item text-primary" routerLink="/admin/drivers">Drivers</a>
+                <a class="dropdown-item text-primary" routerLink="/admin/assign">Assign Driver</a>
+                <a class="dropdown-item text-primary" routerLink="/admin/users">Add Users</a>
+
+            </div>
+        </div>
+
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" (click)="isCustomers = !isCustomers" role="button"
+                aria-haspopup="true" [attr.aria-expanded]="!isCustomers"><em class="las la-users"></em>
+                Transactions</a>
+            <div class="dropdown-menu" [ngbCollapse]="isCustomers">
+                <a class="dropdown-item text-primary" routerLink="/admin/orders">Orders</a>
+                <a class="dropdown-item text-primary" routerLink="/admin/customers">Customers</a>
+
+            </div>
+        </div>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" (click)="isSettings = !isSettings" role="button"
+                aria-haspopup="true" [attr.aria-expanded]="!isServices"><em class="las la-cog"></em> Settings</a>
+            <div class="dropdown-menu" [ngbCollapse]="isSettings">
+                <a class="dropdown-item text-primary" routerLink="/admin/pricing">Billing</a>
+                <a class="dropdown-item text-primary" routerLink="/admin/coupons">Offers</a>
+                <a class="dropdown-item text-primary" routerLink="/admin/errands">Services</a>
+                <a class="dropdown-item text-primary" routerLink="/admin/faq">FAQ</a>
+                <a class="dropdown-item text-primary" routerLink="/admin/terms">Terms</a>
+                <a class="dropdown-item text-primary" routerLink="/admin/privacy">Privacy</a>
+                <a class="dropdown-item text-primary">Logout</a>
+            </div>
+        </div>
+
+    </div>
+</nav>

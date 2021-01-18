@@ -1,0 +1,48 @@
+<nav aria-label="breadcrumb" style="margin-top:100px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/drivers/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Order Status</li>
+    </ol>
+</nav>
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12 ">
+
+            <div class="bg-white table-responsive p-2  mb-3">
+                <table class="table table-striped p-2">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Order #</th>
+                            <th scope="col">Created</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of datas | paginate: { itemsPerPage: 10, currentPage: p }">
+                            <td scope="row"><a [routerLink]="['/drivers/assigned',data.id]">{{data.order_no}}</a>
+                            </td>
+                            <td scope="row">{{data.created | date:'medium'}}</td>
+                            <td scope="row">
+                                <select class="form-control" (change)="onChange(status)" #status>
+                                    <option value="">{{data.status}}</option>
+                                    <option value="2">In Progress</option>
+                                    <option value="3">Completed</option>
+
+                                </select>
+                            </td>
+                            <td scope="row"><button class="btn btn-primary" (click)="updateStatus()">Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<nav aria-label="breadcrumb" style="margin-top:100px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+</nav>
+<div class="container bg-light">
+    <div class="row mt-4">
+        <div class="col-sm-6 col-md-6">
+            <div class="card bg-pattern">
+                <div class="card-body">
+                    <div class="float-right">
+                        <i class="la la-archive text-primary h4 ml-3"></i>
+                    </div>
+                    <h5 class="font-size-20 mt-0 pt-1">{{total}}</h5>
+                    <p class="text-muted mb-0">Total Orders</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <div class="card bg-pattern">
+                <div class="card-body">
+                    <div class="float-right">
+                        <i class="la la-th text-primary h4 ml-3"></i>
+                    </div>
+                    <h5 class="font-size-20 mt-0 pt-1">{{dash.completed}}</h5>
+                    <p class="text-muted mb-0">Completed Orders</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 mt-4">
+            <div class="card bg-pattern">
+                <div class="card-body">
+                    <div class="float-right">
+                        <i class="la la-file text-primary h4 ml-3"></i>
+                    </div>
+                    <h5 class="font-size-20 mt-0 pt-1">{{dash.progress}}</h5>
+                    <p class="text-muted mb-0"> Orders In Progress</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 mt-4">
+            <div class="card bg-pattern">
+                <div class="card-body">
+                    <div class="float-right">
+                        <i class="la la-file text-primary h4 ml-3"></i>
+                    </div>
+                    <h5 class="font-size-20 mt-0 pt-1">{{dash.pending}}</h5>
+                    <p class="text-muted mb-0">Pending Orders</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showNoRecord" class="row d-flex justify-content-center mt-5">
+        <h3>Assigned Orders</h3>
+        <p class="text-muted">No Records Found</p>
+    </div>
+
+    <div *ngIf="showRecords" class="row d-flex justify-content-center mt-5">
+        <div class="bg-white table-responsive p-5  mb-3">
+            <table class="table table-striped p-3">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Order #</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of datas | paginate: { itemsPerPage: 10, currentPage: p }">
+                        <td scope="row"><a [routerLink]="['/drivers/assigned',data.order_id]">{{data.order_no}}</a>
+                        </td>
+                        <td scope="row">{{data.created | date:'medium'}}</td>
+                        <td scope="row">{{data.status}}</td>
+                        <td scope="row"><a [routerLink]="['/drivers/status',data.order_id]">Change status</a></td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+    </div>
+
+    
+
+
+
+</div>

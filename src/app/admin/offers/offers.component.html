@@ -1,0 +1,280 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Coupons</li>
+    </ol>
+</nav>
+<div class="container">
+
+    <div class="row d-flex justify-content-sm-center bg-white p-5">
+        <div class="col-sm-12">
+            <div class="row d-flex justify-content-sm-center">
+                <div>
+                    <button class="btn btn-lg btn-primary mt-3 mb-3" (click)="open(addCouponModal)">Add
+                        Coupon</button>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Coupons</th>
+                                <th scope="col">Services</th>
+                                <th scope="col">Discounts</th>
+                                <th scope="col">Expiration Date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let coupon of coupons | paginate: { itemsPerPage: 10, currentPage: p }">
+                                <th scope="row">{{coupon.id}}</th>
+                                <td>{{coupon.coupon_code}}</td>
+                                <td>{{coupon.services}}</td>
+                                <td>{{coupon.discount}}</td>
+                                <td>{{coupon.valid_till}}</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="control buttons">
+                                        <button type="button" class="btn btn-primary" (click)="open(editCoupon)"
+                                            (click)="getcouponById(coupon.id)">Edit</button>
+                                        <button type="button" class="btn btn-danger"
+                                            [swal]="['Hold on!', 'Sure you want to delete?', 'warning']"
+                                            (confirm)="deleteCoupon(coupon.id)">Delete</button>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!--Add Coupon Modal-->
+<ng-template #addCouponModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">ADD COUPON</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row d-flex justify-content-sm-center bg-white p-3">
+
+            <div class="col-sm-12">
+                <form [formGroup]="addCouponForm" (ngSubmit)="addcoupon()" (ngSubmit)="addCouponForm.reset()"
+                    (ngSubmit)="d('Cross click')">
+                    <div class="form-group row mt-2">
+                        <div class="col-sm-12">
+                            <label for="title">Coupon Code</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-receipt"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27zm.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0l-.509-.51z" />
+                                            <path fill-rule="evenodd"
+                                                d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <input formControlName="title" type="text" class="form-control form-control-lg"
+                                    [ngClass]="{ 'is-invalid': displayError && formControls.title.errors, 'is-valid': formControls.title.valid }"
+                                    (blur)="displayError=true" placeholder="coupon code">
+
+                            </div>
+
+
+                            <div *ngIf="displayError && formControls.title.errors" class="invalid-feedback">
+                                <div *ngIf="formControls.title.errors.required">Enter coupon code to Proceed</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label for="services">Errand Service</label>
+                            <select class="form-control form-control-lg" formControlName="service" #service
+                                [ngClass]="{ 'is-invalid': displayError && formControls.service.errors, 'is-valid': formControls.service.valid }"
+                                (blur)="displayError=true">
+                                <option value="">Select service ...</option>
+                                <option *ngFor="let service of services" [value]="service.id">{{service.title}}
+                                </option>
+                            </select>
+                            <div *ngIf="displayError && formControls.service.errors" class="invalid-feedback">
+                                <div *ngIf="formControls.service.errors.required ">Select service to proceed</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label>Discount</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-percent"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M13.442 2.558a.625.625 0 0 1 0 .884l-10 10a.625.625 0 1 1-.884-.884l10-10a.625.625 0 0 1 .884 0zM4.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm7 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" placeholder="Coupon Discount"
+                                formControlName="discount" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && formControls.discount.errors, 'is-valid': formControls.discount.valid }">
+                        </div>
+
+
+                        <div *ngIf="displayError && formControls.discount.errors" class="invalid-feedback">
+                            <div *ngIf="formControls.discount.errors.required ">Enter discount</div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label>Expiration Date</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-event"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                        <path
+                                            d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                                    </svg>
+
+                                </span>
+                            </div>
+                            <input type="date" class="form-control form-control-lg" placeholder="Pick Date"
+                                formControlName="valid_till" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && formControls.valid_till.errors, 'is-valid': formControls.valid_till.valid }">
+                        </div>
+
+
+                        <div *ngIf="displayError && formControls.discount.errors" class="invalid-feedback">
+                            <div *ngIf="formControls.discount.errors.required ">Enter Expiration Date to Procee</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-block btn-lg btn-primary"
+                                [disabled]="addCouponForm.invalid">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!--Modal  Edit Service template-->
+<ng-template #editCoupon let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">EDIT COUPON</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row d-flex justify-content-sm-center bg-white p-3">
+            <div class="col-sm-12">
+                <div class="d-flex justify-content-sm-center mt-195 mb-195" *ngIf="loading">
+                    <div class="spinner-border text-center text-success" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="showEditValues">
+                    <form (ngSubmit)="updateCoupon(f)" (ngSubmit)="d('Cross click')" #f="ngForm">
+                        <div class="form-group row mt-2">
+                            <div class="col-sm-12">
+                                <label for="title">Coupon Code</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-receipt"
+                                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27zm.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0l-.509-.51z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="this.editcouponById.coupon_code" name="title" id="title">
+                                </div>
+                                <input type="hidden" [(ngModel)]="this.editcouponById.id" name="id" id="id">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <label for="services">Errand Service</label>
+                                <div class="form-control form-control-lg" readonly>
+                                    <p>{{this.editcouponById.services}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <div class="col-sm-12">
+                                <label for="coupon">Discount</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-percent"
+                                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M13.442 2.558a.625.625 0 0 1 0 .884l-10 10a.625.625 0 1 1-.884-.884l10-10a.625.625 0 0 1 .884 0zM4.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm7 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="this.editcouponById.discount" id="discount" name="discount">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row ">
+                            <div class="col-sm-12">
+                                <label for="coupon">Expiration Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                class="bi bi-calendar-event" fill="currentColor"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                                <path
+                                                    d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                                            </svg>
+
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control form-control-lg"
+                                        [(ngModel)]="this.editcouponById.valid_till" id="valid_till" name="valid_till">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-block btn-lg btn-primary" [disabled]="f.invalid">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+<ngx-alerts></ngx-alerts>

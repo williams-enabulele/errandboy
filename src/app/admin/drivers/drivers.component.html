@@ -1,0 +1,101 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Users: Admins | Drivers</li>
+    </ol>
+</nav>
+<div class="container margin_t">
+    <div class="row d-flex justify-content-sm-center bg-white p-3">
+
+        <div class="col-sm-12">
+            <form [formGroup]="DriverForm" (ngSubmit)="onSubmit()">
+                <div class="form-group row mt-5">
+                    <div class="row">
+                        <h3 class="mt-2 mb-2">Add User</h3>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="firstname">Name</label>
+
+                        <input formControlName="firstname" type="text" class="form-control form-control-lg"
+                            [ngClass]="{ 'is-invalid': displayError && formControls.firstname.errors, 'is-valid': formControls.firstname.valid }"
+                            (blur)="displayError=true" placeholder="Enter Name">
+
+                        <div *ngIf="displayError && formControls.firstname.errors" class="invalid-feedback">
+                            <div *ngIf="formControls.firstname.errors.required">Enter First Name to Proceed</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div *ngIf="email" class="form-group mt-4">
+                    <input type="email" class="form-control form-control-lg" placeholder="Email" formControlName="email"
+                        (blur)="displayError=true"
+                        [ngClass]="{ 'is-invalid': displayError && formControls.email.errors, 'is-valid': formControls.email.valid }">
+                    <label><a (click)="show_phone()" class="text-primary">use phone instead</a></label>
+                    <div *ngIf="displayError && formControls.email.errors" class="invalid-feedback">
+                        <div *ngIf="formControls.email.errors.required ">Enter a valid Email to proceed</div>
+                    </div>
+                </div>
+                <div *ngIf="phone" class="form-group mt-4">
+                    <input type="text" class="form-control form-control-lg" placeholder="Phone" formControlName="phone"
+                        (blur)="displayError=true"
+                        [ngClass]="{ 'is-invalid': displayError && formControls.phone.errors , 'is-valid': formControls.phone.valid }">
+                    <label><a (click)="show_email()" class="text-primary">use email instead</a></label>
+                    <div *ngIf="displayError && formControls.phone.errors" class="invalid-feedback">
+                        <div *ngIf="formControls.phone.errors.required ">Enter a valid phone number to proceed</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="roles">Role</label>
+                        <select class="form-control form-control-lg" formControlName="role" #role
+                            [ngClass]="{ 'is-invalid': displayError && formControls.role.errors, 'is-valid': formControls.role.valid }"
+                            (blur)="displayError=true">
+                            <option value="">Select Role ...</option>
+                            <option *ngFor="let role of roles" [value]="role.id">{{role.role}}</option>
+                        </select>
+                        <div *ngIf="displayError && formControls.role.errors" class="invalid-feedback">
+                            <div *ngIf="formControls.role.errors.required ">Select role to proceed</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="password">Password</label>
+
+                        <input formControlName="password" type="password" class="form-control form-control-lg"
+                            [ngClass]="{ 'is-invalid': displayError && formControls.password.errors, 'is-valid': formControls.password.valid }"
+                            (blur)="displayError=true">
+                        <div *ngIf="displayError && formControls.password.errors" class="invalid-feedback">
+                            <div *ngIf="formControls.password.errors.required">Enter Password to proceed</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-block btn-lg btn-primary" [disabled]="DriverForm.invalid">Submit</button>
+                    </div>
+                </div>
+
+
+
+
+            </form>
+            <h3 class="mt-4 mb-2">Password Generator</h3>
+            <div class="row mb-5">
+
+                <div class="col-sm-8 input-group">
+                    <div class="form-control form-control-lg gp">{{gpassword}}</div>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" (click)="copy()">Copy</button>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-block btn-lg btn-primary" (click)="generate()">Generate</button>
+                </div>
+
+            </div>
+        </div>
+        <ngx-alerts></ngx-alerts>
+    </div>
+</div>

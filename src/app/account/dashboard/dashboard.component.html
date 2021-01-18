@@ -1,0 +1,75 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+</nav>
+<div class="container">
+
+    <div class="row mt-4">
+        <div class="col-sm-12">
+            <h3 class="text-primary mt-1">My Order History</h3>
+            <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl" *ngIf="noOrder">
+                <ng-template #contentTpl>
+                    <span> You have no order yet.</span>
+                </ng-template>
+                <ng-template #footerTpl>
+                    <button nz-button nzType="primary" nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="place">Book
+                        Now</button>
+                </ng-template>
+            </nz-empty>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/orders/laundry">Laundry or dry-cleaning
+                        pickup and
+                        drop off</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/orders/prescription">Prescription pickup
+                        lind
+                        delivery</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/orders/catering">Catering pickup and
+                        delivery</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/orders/baking">Bakery pickup and delivery
+                    </li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/orders/mail-package">Mail or package pickup
+                        and
+                        delivery</li>
+                    <li nz-menu-item routerLinkActive="active" routerLink="/orders/store-purchase">Store pickup or
+                        purchase
+                        and
+                        delivery</li>
+                </ul>
+            </nz-dropdown-menu>
+            <div *ngIf="history">
+                <div class="card mb-3" *ngFor="let data of datas | paginate: { itemsPerPage: 5, currentPage: p }">
+                    <a [routerLink]="['/account/my-orders', data.id]">
+                        <div class="card-body">
+                            <h5 class="card-title">{{data.order_no}}</h5>
+                            <p class="card-text">{{data.title}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-secondary"><svg width="1em" height="1em" viewBox="0 0 16 16"
+                                        class="bi bi-calendar2-event" fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z" />
+                                        <path
+                                            d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                                    </svg> {{data.created | date: 'medium'}}</span><span class="text-secondary"><svg
+                                        width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cash"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M15 4H1v8h14V4zM1 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H1z" />
+                                        <path
+                                            d="M13 4a2 2 0 0 0 2 2V4h-2zM3 4a2 2 0 0 1-2 2V4h2zm10 8a2 2 0 0 1 2-2v2h-2zM3 12a2 2 0 0 0-2-2v2h2zm7-4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                                    </svg> ${{data.cost}}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+        </div>
+
+    </div>
+</div>

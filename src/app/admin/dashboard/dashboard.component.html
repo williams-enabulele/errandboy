@@ -1,0 +1,85 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row bg-white p-5">
+        <div class="col-lg-6 col-sm-6">
+            <div class="card-box bg-blue">
+                <div class="inner">
+                    <h3 class="text-white"> {{no_customers['customers_no']}} </h3>
+                    <p> Customers </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                </div>
+                <a class="card-box-footer" routerLink="/admin/users">View More <i
+                        class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-6">
+            <div class="card-box bg-green">
+                <div class="inner">
+                    <h3 class="text-white"> {{no_transactions['transaction_no']}} </h3>
+                    <p> Today’s Transaction </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                </div>
+                <a class="card-box-footer" routerLink="/admin/transactions">View More <i
+                        class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <div class="card-box bg-orange">
+                <div class="inner">
+                    <h3 class="text-white"> {{no_orders['orders_no']}} </h3>
+                    <p> New Orders </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                </div>
+                <a class="card-box-footer" routerLink="/admin/orders">View More <i
+                        class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <div class="card-box bg-red">
+                <div class="inner">
+                    <h3 class="text-white"> {{no_drivers['drivers_no']}} </h3>
+                    <p> Drivers </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <a class="card-box-footer" routerLink="/admin/users">View More <i
+                        class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <nz-date-picker nzMode="year" nzSize="large" nzFormat="yyyy" nzPlaceHolder="Select Year" [(ngModel)]="date"
+                (ngModelChange)="callLineChart($event)">
+            </nz-date-picker>
+
+        </div>
+
+
+    </div>
+    <div class="mt-3 row bg-white p-4">
+        <div class="col-sm-12">
+            <div class="chart-wrapper">
+                <canvas baseChart class="chart" width="400" height="400" [datasets]="lineChartData"
+                    [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+                    [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
+                </canvas>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

@@ -1,0 +1,81 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+    </ol>
+</nav>
+<div class="container ">
+    <div class="row d-flex justify-content-center">
+        <div class="col-sm-12">
+            <div class="card">
+            <div class="card-body">
+               <form #f="ngForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="Enter Fullname" [ngModel]="firstname" name="firstname" ngModel>
+                    <input type="hidden" [ngModel]="id" name="id">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control form-control-lg" placeholder="Enter Email" [ngModel]="email" name="email" ngModel >
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="Enter Phone" name="phone" [ngModel]="phone" ngModel>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Enter Address" name="address" [ngModel]="address" ngModel >
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Enter City" name="city" [ngModel]="city" ngModel>
+                        </div>
+                    </div>
+              
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Enter State" name="state" [ngModel]="state" ngModel>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>#Apt</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Enter Apartment #" name="aptno" [ngModel]="aptno" ngModel>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Zip</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Enter Zip" name="zip" [ngModel]="zip" ngModel>
+                        </div>
+                    </div>
+                </div>
+                <div class="row  mt-4" *ngIf="createBtn">
+                    <div class="col-sm-12">
+                            <button class="btn btn-block btn-primary" (click)="createProfile(f)"><span *ngIf="loading"
+                                class="spinner-grow spinner-grow-sm text-light"></span> Save</button>
+                    </div>
+                </div>
+                <div class="row  mt-4" *ngIf="updateBtn">
+                    <div class="col-sm-12">
+                            <button class="btn btn-block btn-primary" (click)="updateProfile(f)"><span *ngIf="loading"
+                                class="spinner-grow spinner-grow-sm text-light"></span>Update</button>
+                    </div>
+                </div>
+               </form>
+
+            </div>
+        </div>
+    </div>
+  
+    
+    
+</div>

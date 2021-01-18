@@ -1,0 +1,150 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Privacy</li>
+    </ol>
+</nav>
+<div class="container">
+
+    <div class="row d-flex justify-content-sm-center bg-white p-5">
+        <div class="col-sm-12">
+
+            <div>
+                <button class="btn btn-lg btn-primary mt-3 mb-3" (click)="open(addprivacyModal)">Add
+                    privacy</button>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">title</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let privacy of privacys  | paginate: { itemsPerPage: 10, currentPage: p }">
+                            <th scope="row">{{privacy.id}}</th>
+                            <td>{{privacy.title}}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="control buttons">
+                                    <button type="button" class="btn btn-primary" (click)="open(editprivacy)"
+                                        (click)="getprivacyById(privacy.id)">Edit</button>
+                                    <button type="button" class="btn btn-danger"
+                                        [swal]="['Hold on!', 'Sure you want to delete?', 'warning']"
+                                        (confirm)="deleteprivacy(privacy.id)">Delete</button>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Add Serveice Modal-->
+<ng-template #addprivacyModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">ADD privacy</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row d-flex justify-content-sm-center bg-white p-1">
+            <div class="col-sm-12">
+                <form (ngSubmit)="addprivacy(g)" #g="ngForm" (ngSubmit)="d('Cross click')">
+                    <div class="form-group row mt-2">
+                        <div class="col-sm-12">
+                            <label for="title">title</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" placeholder="title"
+                                    [(ngModel)]="title" name="title">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+
+                            <label>content</label>
+                            <div class="form-group">
+                                <textarea [(ngModel)]="content" class="form-control form-control-lg "
+                                    name="content"></textarea>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-block btn-lg btn-primary" [disabled]="c.invalid">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<!--Modal  Edit Service template-->
+<ng-template #editprivacy let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">EDIT privacy</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="row d-flex justify-content-sm-center bg-white p-1">
+
+
+            <div class="col-sm-12">
+
+                <div *ngIf="showEditValues">
+                    <form (ngSubmit)="updateprivacy(f)" (ngSubmit)="d('Cross click')" #f="ngForm">
+                        <div class="form-group row mt-2">
+                            <div class="col-sm-12">
+                                <label for="title">title</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="this.editprivacyById.title" name="title" id="title">
+                                </div>
+                                <input type="hidden" [(ngModel)]="this.editprivacyById.id" name="id" id="id">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>content</label>
+                                    <textarea [(ngModel)]="this.editprivacyById.content" class="form-control"
+                                        name="content" id="content"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-block btn-lg btn-primary" [disabled]="f.invalid">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+
+
+<ngx-alerts></ngx-alerts>

@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg  bg-white">
+  <a class="navbar-brand" routerLink="/"><img src="assets/images/errand-boy-logo.png" alt="logo"
+      style="width: 150px;"></a>
+  <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" aria-controls="navbarColor01"
+    [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/services">Services</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/contact">Contact</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" (click)="isDropdown = !isDropdown" role="button" aria-haspopup="true"
+          [attr.aria-expanded]="!isDropdown">Account</a>
+        <div class="dropdown-menu" [ngbCollapse]="isDropdown">
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/auth/signin">Signin</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/auth/signup">Signup</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/terms">Terms & Condition</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/privacy">Privacy Policies</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/faq">FAQs</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>

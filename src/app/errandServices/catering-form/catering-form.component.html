@@ -1,0 +1,184 @@
+<div class="jumbotron jumbotron-fluid " style="margin-top: -4px;">
+    <div class="container">
+        <h3 class=" text-center">Order catering Pickup and Delivery
+        </h3>
+
+
+    </div>
+</div>
+<div class="container">
+    <div class="row margin_t">
+        <div class="col-sm-10 mx-auto mb-3">
+            <form [formGroup]="errandForm" (ngSubmit)="getPricing()">
+                <div class="card">
+                    <div class="card-body">
+                        <div class=" row">
+                            <div class=" form-group col-sm-12" >
+                                <label for="originAddress">Pick-up Address</label>
+                                <input type="text" #originAddress class="form-control form-control-lg"
+                                    formControlName="originAddress" placeholder="Enter standard address"
+                                    ngx-google-places-autocomplete #placesRef="ngx-places"
+                                    (onAddressChange)="handleAddressChange($event)">
+                                <input type="hidden" #errandService value="2">
+
+                            </div>
+                            <div classs="form-group col-sm-12">
+                                <label>Apt#/flr</label>
+                                <input type="text" class="form-control form-control-lg" formControlName="fromno" placeholder="apt | suite | flr #">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <label for="destinationAddress">Drop-off Address</label>
+                                <input type="text" #destinationAddress class="form-control form-control-lg"
+                                    formControlName="destinationAddress" placeholder="Enter standard address"
+                                    ngx-google-places-autocomplete #placesRef="ngx-places"
+                                    (onAddressChange)="handleAddressChange($event)">
+                            </div>
+                            <div classs="col-sm-12">
+                                <label>Apt#/flr</label>
+                                <input type="text" class="form-control form-control-lg" formControlName="tono" placeholder="apt | suite | flr #">
+                            </div>
+                        </div>
+                        <div class="form-group  d-flex justify-content-center">
+                            <button class="btn btn-danger btn-lg btn-md mt-2 mb-2" [disabled]="errandForm.invalid"
+                                *ngIf="showbutton">Get
+                                Price</button>
+                            <button *ngIf="showbtnloading" class="btn btn-lg btn-md mt-2 mb-2 btn-primary" type="button"
+                                disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </form>
+            <div class="card bg-primary mt-3" *ngIf="showPrice">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-sm-9 mx-auto">
+                            <h1 class="text-white text-center">$ {{service_fee}}</h1>
+                            <hr>
+                            <p class="help-block text-center text-white">Fill out other details and proceed to checkout
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <form [formGroup]="cateringForm" (ngSubmit)="onSubmit()">
+
+                <!-- Pick Up Address-->
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="b_name">Store Name</label>
+                        <input type="text" class="form-control form-control-lg" formControlName="pickup_name"
+                            placeholder="Enter store  Name" (blur)="displayError=true"
+                            [ngClass]="{ 'is-invalid': displayError && f.pickup_name.errors, 'is-valid': displayError && f.pickup_name.valid }">
+                        <div *ngIf="displayError && f.pickup_name.errors" class="help-block text-danger">
+                            <div *ngIf="f.pickup_name.errors.required">Store Name is required</div>
+
+                            <input type="hidden" formControlName="service_id">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <label for="zip_code">Quantity</label>
+                        <input type="text" class="form-control form-control-lg" formControlName="quantity"
+                            placeholder="Enter Quantity" (blur)="displayError=true"
+                            [ngClass]="{ 'is-invalid': displayError && f.quantity.errors, 'is-valid': displayError && f.quantity.valid }">
+                        <div *ngIf="displayError && f.quantity.errors" class="help-block text-danger">
+                            <div *ngIf="f.quantity.errors.required">Quantity is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="pick_up_date">Pick up Date</label>
+                        <input type="date" class="form-control form-control-lg" formControlName="pickup_date"
+                            placeholder="Enter store  Name" (blur)="displayError=true"
+                            (change)="onChangeDate($event.target.value)"
+                            [ngClass]="{ 'is-invalid': displayError && f.pickup_date.errors, 'is-valid': displayError && f.pickup_date.valid }">
+                        <div *ngIf="displayError && f.pickup_date.errors" class="help-block text-danger">
+                            <div *ngIf="f.pickup_date.errors.required">Date is required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="pick_up_date">Pick Time</label>
+                        <select class="form-control form-control-lg" formControlName="pickup_time"
+                            (blur)="displayError=true" (change)="onChangeTime($event.target.value)"
+                            [ngClass]="{ 'is-invalid': displayError && f.pickup_time.errors, 'is-valid': displayError && f.pickup_time.valid }">
+                            <option value="">Select Time ...</option>
+                            <option *ngFor="let time of time_slots" [value]="time.id">{{time.time}}</option>
+                        </select>
+                        <div *ngIf="displayError && f.pickup_time.errors" class="help-block text-danger">
+                            <div *ngIf="f.pickup_time.errors.required">Time is required</div>
+                        </div>
+                        <div *ngIf="showloading" class="spinner-border text-primary"></div>
+                        <div *ngIf="showAvailable" class="help-block text-success">
+                            <p>{{message}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drop off Address-->
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="dropoff_name">Full name of the recipient</label>
+                        <input type="text" class="form-control form-control-lg" formControlName="dropoff_name"
+                            placeholder="Enter Recipient's Name" (blur)="displayError=true"
+                            [ngClass]="{ 'is-invalid': displayError && f.dropoff_name.errors, 'is-valid': displayError && f.dropoff_name.valid }">
+                        <div *ngIf="displayError && f.dropoff_name.errors" class="help-block text-danger">
+                            <div *ngIf="f.dropoff_name.errors.required">Enter is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="phone">Phone No.</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <select class="form-control form-control-lg mr-1">
+                                    <option value="">US +1</option>
+                                </select>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" formControlName="phone"
+                                placeholder="Enter Phone Number" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && f.phone.errors, 'is-valid': displayError && f.phone.valid }">
+                        </div>
+                        <div *ngIf="displayError && f.phone.errors" class="help-block text-danger">
+                            <div *ngIf="f.phone.errors.required">Enter a valid phone number to proceed</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="dir">Special Instruction</label>
+                        <textarea class="form-control" formControlName="instructions"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-12 ">
+                        <button class="btn btn-danger btn-lg btn-md mt-2 mb-2 mx-auto"
+                            [disabled]="cateringForm.invalid">Proceed
+                            to Checkout</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+
+</div>

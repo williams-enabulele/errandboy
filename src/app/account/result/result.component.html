@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <nz-result nzStatus="success" nzTitle="Successfully Booked!"
+        nzSubTitle="Thank you for booking your errand with us ">
+        <div nz-result-extra>
+            <button nz-button nzType="primary" routerLink="/">Go Home</button>
+            <button nz-button><a nz-dropdown [nzDropdownMenu]="menu">Book Again <i nz-icon nzType></i></a> </button>
+        </div>
+    </nz-result>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+
+            <li nz-menu-item routerLinkActive="active" routerLink="/orders/laundry">Laundry or dry-cleaning pickup and
+                drop off</li>
+            <li nz-menu-item routerLinkActive="active" routerLink="/orders/prescription">Prescription pickup lind
+                delivery</li>
+            <li nz-menu-item routerLinkActive="active" routerLink="/orders/catering">Catering pickup and
+                delivery</li>
+            <li nz-menu-item routerLinkActive="active" routerLink="/orders/baking">Bakery pickup and delivery</li>
+            <li nz-menu-item routerLinkActive="active" routerLink="/orders/mail-package">Mail or package pickup and
+                delivery</li>
+            <li nz-menu-item routerLinkActive="active" routerLink="/orders/store-purchase">Store pickup or purchase
+                and
+                delivery</li>
+        </ul>
+    </nz-dropdown-menu>
+
+</div>

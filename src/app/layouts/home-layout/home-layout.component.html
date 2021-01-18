@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-md navbar-light p-2 d-flex justify-content-between" style="background-color: rgb(44, 68, 248);">
+    <a class="navbar-brand"  routerLink="/"><img src="assets/images/errand-boy-logo.png" alt="logo"
+            style="width: 70px; margin-left: 5px"></a>
+        <ul class="navbar-nav" style="margin-right: 35px;">
+            <li class="nav-item" ngbDropdown display="dynamic" placement="bottom" isAnimated="true">
+                <a class="nav-link btn-outline-primary" tabindex="0" ngbDropdownToggle id="navbarDropdown3"
+                    role="button">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    </svg> Account
+                </a>
+                <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu ml-3" >
+                    
+                        <a ngbDropdownItem routerLinkActive="active" routerLink="/auth/signin">Signin</a>
+                        <a ngbDropdownItem routerLinkActive="active" routerLink="/auth/signup">Signup</a>
+                  
+                    <a class="dropdown-item" routerLinkActive="active" routerLink="/admin/dashboard" *ngIf="admin">Dashboard</a>
+                    <a class="dropdown-item" routerLinkActive="active" routerLink="/drivers/dashboard" *ngIf="drivers">Dashboard</a>
+                    <a class="dropdown-item" routerLinkActive="active" routerLink="/account/dashboard" *ngIf="account">Dashboard</a>
+                    <a *ngIf="loggedIn" routerLinkActive="active" class="dropdown-item" (click)="logOut()">Signout</a>
+                </div>
+            </li>
+        </ul>
+</nav>
+<nav class="navbar navbar-expand-md navbar-light p-2 d-flex justify-content-center" style="background-color: white;">
+
+
+
+    <a class="nav-link" routerLink="/" routerLinkActive="active" *ngIf="showHome">
+        Home
+     </a>
+           
+                <a class="nav-link" routerLink="/about" routerLinkActive="active">
+                   About
+                </a>
+          
+           
+                <a class="nav-link" routerLink="/contact" routerLinkActive="active">
+                    Contact
+                </a>
+                <a class="nav-link" routerLinkActive="active" routerLink="/terms">Terms</a>
+                    <a class="nav-link" routerLinkActive="active" routerLink="/privacy">Privacy</a>
+                    <a class="nav-link" routerLinkActive="active" routerLink="/faq">FAQs</a>
+           
+     
+        <div *ngIf=showCart>
+            <a routerLink="/billing">
+                <svg id="i-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"
+                    fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M6 6 L30 6 27 19 9 19 M27 23 L10 23 5 2 2 2" />
+                    <circle cx="25" cy="27" r="2" />
+                    <circle cx="12" cy="27" r="2" />
+                </svg>
+                <span class='badge badge-warning' id='lblCartCount'> 1 </span></a>
+        </div>
+    
+</nav>
+<router-outlet class="mt-0 mb-0 mr-0 ml-0"></router-outlet>
+<app-footer class="mt-0"></app-footer>

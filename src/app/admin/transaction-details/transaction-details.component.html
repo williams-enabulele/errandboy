@@ -1,0 +1,56 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; ">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Transaction Details</li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row p-1" id="htmlData" #htmlData>
+        <h3 class="d-flex justify-content-center mt-4 ml-2">Transaction Details</h3>
+        <div class="col-sm-10 d-flex justify-content-center bg-white">
+
+            <ul class="list-group list-group-flush m-4">
+                <li class="list-group-item"><span class="badge badge-pill text-primary">id</span> {{data.id}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Transaction Id</span>
+                    {{data.transaction_id}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Transaction Date</span>
+                    {{data.created_at | date: 'medium'}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Update At</span>
+                    {{data.updated_at}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Amount</span> ${{data.amount}}
+                </li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Currency</span> {{data.currency}}
+                </li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Transaction Status</span>
+                    {{data.t_status}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Source Type</span>
+                    {{data.source_type}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Card Brand</span>
+                    {{data.card_brand}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Last 4</span> {{data.last_4}}
+                </li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Expiration Month</span>
+                    {{data.exp_month}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Expiration Year</span>
+                    {{data.exp_year}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Receipt No</span>
+                    {{data.receipt_no}}</li>
+                <li class="list-group-item"><span class="badge badge-pill text-primary">Receipt Url</span>
+                    <a>{{data.receipt_url}}</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-sm-12">
+            <div class="print d-flex justify-content-center mt-2">
+                <button class="btn btn-primary" printSectionId="htmlData" (click)="genPDF()">
+                    <i class="fas fa-print"></i>
+                    Export As | PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

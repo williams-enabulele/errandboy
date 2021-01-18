@@ -25,12 +25,31 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/theme.less",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/styles.scss",
+              "node_modules/line-awesome/dist/line-awesome/css/line-awesome.min.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "./node_modules/owl.carousel/dist/assets/owl.carousel.min.css",
+              "./node_modules/owl.carousel/dist/assets/owl.theme.default.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jspdf/dist/jspdf.debug.js",
+              "./node_modules/html2canvas/dist/html2canvas.min.js",
+              "./node_modules/owl.carousel/dist/owl.carousel.min.js",
+              "./node_modules/parse-address/parse-address.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -92,7 +111,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/css/fontawesome.min.css"
             ],
             "scripts": []
           }
@@ -123,6 +144,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "errandboy"
 }

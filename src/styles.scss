@@ -1,1 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~ng-zorro-antd/style/index.min.css";
+/* Importing Bootstrap SCSS file. */
+//@import "~bootstrap/scss/bootstrap";
+@import url(//fonts.googleapis.com/css?family=Montserrat:300,400,700);
+
+
+
+.active {
+    color: blue
+}
+
+/* .row {
+  margin-left: -15px;
+  margin-right: -15px;
+} */
+
+.jumbotron{
+    background-color: #fff;
+}
+.jumbotron h1 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 50px;
+    text-transform: uppercase;
+}
+ h2  {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 50px;
+    text-transform: uppercase;
+    color:#007bff9e !important;
+}
+
+
+ p  {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 350;
+    font-size: 1rem;
+    //line-height: 50px;
+    //color:#007bff9e !important;
+}
+
+h5,h3 {
+    font-size: 1.25rem;
+     font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    
+    color:#007bff9e !important;
+
+}
+
+
+
+body { 
+color: #0a82fb;
+position: block;
+  //overflow: hidden;
+  transition: left 0.5s ease; /* Animation styles are just for demo */
+  left:0;
+ 
+}
+/* 
+body.push {
+  left:250px;
+} */
+

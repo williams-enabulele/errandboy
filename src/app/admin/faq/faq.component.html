@@ -1,0 +1,150 @@
+<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+    <ol class="breadcrumb bg-transparent">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Faq</li>
+    </ol>
+</nav>
+<div class="container">
+
+    <div class="row d-flex justify-answer-sm-center bg-white p-5">
+        <div class="col-sm-12">
+
+            <div>
+                <button class="btn btn-lg btn-primary mt-3 mb-3" (click)="open(addFaqModal)">Add
+                    FAQ</button>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">question</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let faq of faqs  | paginate: { itemsPerPage: 10, currentPage: p }">
+                            <th scope="row">{{faq.id}}</th>
+                            <td>{{faq.question}}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="control buttons">
+                                    <button type="button" class="btn btn-primary" (click)="open(editFaq)"
+                                        (click)="getFaqById(faq.id)">Edit</button>
+                                    <button type="button" class="btn btn-danger"
+                                        [swal]="['Hold on!', 'Sure you want to delete?', 'warning']"
+                                        (confirm)="deleteFaq(faq.id)">Delete</button>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Add Serveice Modal-->
+<ng-template #addFaqModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-question" id="modal-basic-question">ADD FAQ</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row d-flex justify-answer-sm-center bg-white p-1">
+            <div class="col-sm-12">
+                <form (ngSubmit)="addFaq(g)" #g="ngForm" (ngSubmit)="d('Cross click')">
+                    <div class="form-group row mt-2">
+                        <div class="col-sm-12">
+                            <label for="question">Question</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" placeholder="question"
+                                    [(ngModel)]="question" name="question">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+
+                            <label>Answer</label>
+                            <div class="form-group">
+                                <textarea [(ngModel)]="answer" class="form-control form-control-lg "
+                                    name="answer"></textarea>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-block btn-lg btn-primary" [disabled]="c.invalid">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<!--Modal  Edit Service template-->
+<ng-template #editFaq let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-question" id="modal-basic-question">EDIT FAQ</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="row d-flex justify-answer-sm-center bg-white p-1">
+
+
+            <div class="col-sm-12">
+
+                <div *ngIf="showEditValues">
+                    <form (ngSubmit)="updateFaq(f)" (ngSubmit)="d('Cross click')" #f="ngForm">
+                        <div class="form-group row mt-2">
+                            <div class="col-sm-12">
+                                <label for="question">question</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="this.editFaqById.question" name="question" id="question">
+                                </div>
+                                <input type="hidden" [(ngModel)]="this.editFaqById.id" name="id" id="id">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Answer</label>
+                                    <textarea [(ngModel)]="this.editFaqById.answer" class="form-control" name="answer"
+                                        id="answer"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-block btn-lg btn-primary" [disabled]="f.invalid">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+
+
+<ngx-alerts></ngx-alerts>

@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <div class="container">
+
+        <div class="row justify-content-sm-center mt-3">
+            <div class="col-sm-8 shadow-sm" style="background-color: white;">
+                <form class="form-group p-4" [formGroup]="signup" (ngSubmit)="onSignup()">
+                    <div class="form-group">
+                        <div class="text-center mt-5">
+                            <h1>SignUp</h1>
+                            <p class="lead">Don't have an account, signup quickly
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" placeholder="Full Name"
+                            formControlName="firstname" (blur)="displayError=true"
+                            [ngClass]="{ 'is-invalid': displayError && su.firstname.errors, 'is-valid': su.firstname.valid }">
+                        <div *ngIf="displayError && su.firstname.errors" class="invalid-feedback">
+                            <div *ngIf="su.firstname.errors.required ">Fullname is required to proceed</div>
+                        </div>
+                    </div>
+                    <div *ngIf="email" class="form-group mt-4">
+                        <input type="text" class="form-control form-control-lg" placeholder="email"
+                            formControlName="email" (blur)="displayError=true"
+                            [ngClass]="{ 'is-invalid': displayError && su.email.errors , 'is-valid': su.email.valid }">
+                        <label><a (click)="show_phone()" class="text-primary">use phone instead</a></label>
+                        <div *ngIf="displayError && su.email.errors" class="invalid-feedback">
+                            <div *ngIf="su.email.errors.required ">Enter a valid Email to proceed</div>
+                        </div>
+                    </div>
+                    <div *ngIf="phone" class="form-group mt-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><img src="/assets/images/usflag.png"></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" placeholder="Phone"
+                                formControlName="phone" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && su.phone.errors , 'is-valid': su.phone.valid }">
+                        </div>
+
+                        <label><a (click)="show_email()" class="text-primary">use email instead</a></label>
+                        <div *ngIf="displayError && su.phone.errors" class="invalid-feedback">
+                            <div *ngIf="su.phone.errors.required ">Enter a valid phone number to proceed</div>
+                        </div>
+                    </div>
+                    <div class=" form-group">
+                        <input type="password" class="form-control form-control-lg" placeholder="Password"
+                            (blur)="displayError=true"
+                            [ngClass]="{ 'is-invalid': displayError && su.password.errors , 'is-valid': su.password.valid }"
+                            formControlName="password">
+                        <div *ngIf="displayError && su.password.errors" class="invalid-feedback">
+                            <div *ngIf="su.password.errors.required ">Password must contain atleast one (1) lower alphabetical character</div>
+                            <div *ngIf="su.password.errors.required ">Password must contain atleast one (1) upper alphabetical character</div>
+                            <div *ngIf="su.password.errors.required ">Password must contain atleast one (1) numeric character</div>
+                            <div *ngIf="su.password.errors.required ">Password must contain atleast one (1) special  character</div>
+                            <div *ngIf="su.password.errors.required ">Password must be atleast eight (8) characters or longer</div>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group justify-content-start mt-4">
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" formControlName="terms"
+                                    (blur)="displayError=true"
+                                    [ngClass]="{ 'is-invalid': displayError && su.terms.errors, 'is-valid': su.terms.valid }">
+                                I Read and Accept <a routerLink="/terms" target="_blank" >Terms and Conditions</a>
+                            </label>
+                            <div *ngIf="displayError && su.terms.errors " class="invalid-feedback">
+                                <div *ngIf="su.terms.errors.required ">Check Terms & Conditions to proceed</div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary mt-4" type="submit" [disabled]="signup.invalid"><span *ngIf="loading"
+                                class="spinner-border text-warning" ></span>Submit</button>
+
+                    </div>
+                    <div class="form-group justify-content-end mb-5">
+
+                        <label class="form-label"> <a routerLink="/auth/signin">Signin instead <em
+                                    class="las la-arrow-alt-circle-right"></em></a></label>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

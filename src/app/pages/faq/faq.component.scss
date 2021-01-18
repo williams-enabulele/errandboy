@@ -1,0 +1,77 @@
+
+::ng-deep   .card {
+  border: none;
+}
+
+::ng-deep .label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+::ng-deep .label-primary {
+    background-color: #428bca;
+}
+
+::ng-deep  .card-header {
+  margin-top: 0.75em !important;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+::ng-deep .card .card-header button.btn.btn-link.collapsed{
+    text-decoration: none !important;
+    color: beige;
+}
+
+::ng-deep .card .card-header button.btn.btn-link{
+    text-decoration: none !important;
+    color: rgb(13, 39, 113);
+}
+::ng-deep .card-block {
+  text-align: left;
+}
+
+::ng-deep .collapse.show {
+    
+animation: fadeIn ease 5s;
+-webkit-animation: fadeIn ease 5s;
+-moz-animation: fadeIn ease 5s;
+-o-animation: fadeIn ease 5s;
+-ms-animation: fadeIn ease 5s;
+}
+@keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+::ng-deep .collapse {
+display: block !important;
+  transition: all .25s ease-in-out;
+}
