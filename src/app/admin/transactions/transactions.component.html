@@ -1,10 +1,29 @@
-<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+<nav aria-label="breadcrumb" style="margin-top:20px;">
     <ol class="breadcrumb bg-transparent">
         <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
         <li class="breadcrumb-item active" aria-current="page">Transactions</li>
     </ol>
 </nav>
 <div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-9">
+            
+                <label  class="heading mt-5 text-center">Order # | Customer Id</label>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="inputGroupSelect02" (change)="showhide()" [(ngModel)]="selectedOptions" [ngModelOptions]="{standalone:true}">
+                        <option value="">Filter by...</option>
+                        <option value="1" >Order #</option>
+                        <option value="2">Customer Id</option>
+                      </select>
+                    <input type="text" class="form-control form-control-lg" placeholder="Search..." [(ngModel)]="order_no" [ngModelOptions]="{standalone:true}" *ngIf="showOrderDiv"> 
+                    <input type="text" class="form-control form-control-lg" placeholder="Search..." [(ngModel)]="customer_id" [ngModelOptions]="{standalone:true}" *ngIf="showCustDiv">
+                  </div>
+                
+                     
+               
+        </div>
+       
+    </div>
 
     <div class="row d-flex justify-content-center">
         <div class="bg-white table-responsive p-5  mb-3">
@@ -12,19 +31,25 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Order #</th>
+                        <th scope="col">Customer Id</th>
                         <th scope="col">Order Date</th>
                         <th scope="col">Price</th>
                         <th scope="col">Receipt #</th>
+                        <th scope="col">Last updated</th>
                         <th scope="col">Status</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let t of transactions | paginate: { itemsPerPage: 10, currentPage: p }">
-                        <th scope="row">{{t.id}}</th>
+                    <tr *ngFor="let t of transactions | custFilter: customer_id | transFilter: order_no  | paginate: { itemsPerPage: 10, currentPage: p }">
+                        <th scope="row">{{t.order_id}}</th>
+                        <td scope="row"><a [routerLink]="['/admin/transaction',t.id]">{{t.order_no}}</a></td>
+                        <td scope="row">{{t.customer_id}}</td>
                         <td scope="row">{{t.created_at| date:'medium'}}</td>
                         <td scope="row">{{t.amount | currency:'USD'}}</td>
                         <td scope="row"><a [routerLink]="['/admin/transaction',t.id]">{{t.receipt_no }}</a></td>
+                        <td scope="row">{{t.updated_at | date:'medium'}}</td>
                         <td scope="row">{{t.t_status}}</td>
                     </tr>
 

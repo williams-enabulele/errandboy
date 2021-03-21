@@ -34,7 +34,9 @@
             ],
             "styles": [
               "src/theme.less",
+              "node_modules/animate.css/animate.compat.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.scss",
               "node_modules/line-awesome/dist/line-awesome/css/line-awesome.min.css",
@@ -146,5 +148,8 @@
       }
     }
   },
-  "defaultProject": "errandboy"
+  "defaultProject": "errandboy",
+  "cli": {
+    "analytics": false
+  }
 }

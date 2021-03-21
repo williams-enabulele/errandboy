@@ -1,12 +1,13 @@
-<div class="jumbotron jumbotron-fluid " style="margin-top: -4px;">
-    <div class="container">
+
+<div class="container">
+    
+    <div class="container mt-5">
         <h3 class=" text-center">Order laundry Pickup and Delivery
         </h3>
 
 
     </div>
-</div>
-<div class="container">
+
 
     <div class="row margin_t">
         <div class="col-sm-10 mx-auto mb-3">
@@ -30,7 +31,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <label for="destinationAddress">Drop-off Address</label>
+                                <label for="destinationAddress">drop-off Address</label>
                                 <input type="text" #destinationAddress class="form-control form-control-lg"
                                     formControlName="destinationAddress" placeholder="Enter standard address"
                                     ngx-google-places-autocomplete #placesRef="ngx-places"
@@ -39,6 +40,7 @@
                             <div classs="col-sm-12">
                                 <label>Apt#/flr</label>
                                 <input type="text" class="form-control form-control-lg" formControlName="tono" placeholder="apt | suite | flr #">
+                                <label class="mt-2">We presently serve Harlem Manhattan, the Bronx and Westchester, New York</label>
                             </div>
                         </div>
                         <div class="form-group  d-flex justify-content-center">
@@ -71,121 +73,131 @@
                     </div>
                 </div>
             </div>
-
-            <form [formGroup]="laundryForm" (ngSubmit)="onSubmit()">
-                <div class="row form-group mt-2">
-                    <div class="col-sm-12">
-                        <label for="b_name">Pickup Options</label>
-                        <select class="form-control form-control-lg" formControlName="pickupoption"
-                            (blur)="displayError=true"
-                            [ngClass]="{ 'is-invalid': displayError && f.pickupoption.errors, 'is-valid': displayError && f.pickupoption.valid }">
-                            <option value="">Pick up Option ...</option>
-                            <option value="Pickup from laundry or dry cleaner and drop off to home">Pickup from laundry
-                                or dry cleaner and
-                                drop off to home</option>
-                            <option value="Pickup from home and drop off to laundry or dry cleaner">Pickup from home and
-                                drop off to laundry
-                                or dry cleaner</option>
-                        </select>
-                        <div *ngIf="displayError && f.pickupoption.errors" class="help-block text-danger">
-                            <div *ngIf="f.pickupoption.errors.required">Pickup option isrequired</div>
+            <div *ngIf="showForm">
+               
+                <form [formGroup]="laundryForm" (ngSubmit)="onSubmit()">
+                    <div class="card p-4 mb-2 ">
+                        <div class="card-header mb-2">
+                            Pickup Details
                         </div>
-                    </div>
-
-                </div>
-
-                <!-- Pick Up Address-->
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <label for="b_name">Customer Name</label>
-                        <input type="text" class="form-control form-control-lg" formControlName="pickup_name"
-                            placeholder="Enter Customer Name" (blur)="displayError=true"
-                            [ngClass]="{ 'is-invalid': displayError && f.pickup_name.errors, 'is-valid': displayError && f.pickup_name.valid }">
-                        <div *ngIf="displayError && f.pickup_name.errors" class="help-block text-danger">
-                            <div *ngIf="f.pickup_name.errors.required">Customer Name is required</div>
-
-                            <input type="hidden" formControlName="service_id">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <label for="pick_up_date">Pick up Date</label>
-                        <input type="date" class="form-control form-control-lg" formControlName="pickup_date"
-                            placeholder="Enter Customer Name" (blur)="displayError=true"
-                            (change)="onChangeDate($event.target.value)"
-                            [ngClass]="{ 'is-invalid': displayError && f.pickup_date.errors, 'is-valid': displayError && f.pickup_date.valid }">
-                        <div *ngIf="displayError && f.pickup_date.errors" class="help-block text-danger">
-                            <div *ngIf="f.pickup_date.errors.required">Date is required</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="pick_up_date">Pick Time</label>
-                        <select class="form-control form-control-lg" formControlName="pickup_time"
-                            (change)="onChangeTime($event.target.value)" (blur)="displayError=true"
-                            [ngClass]="{ 'is-invalid': displayError && f.pickup_time.errors, 'is-valid': displayError && f.pickup_time.valid }">
-                            <option value="">Select Time ...</option>
-                            <option *ngFor="let time of time_slots" [value]="time.id">{{time.time}}</option>
-                        </select>
-                        <div *ngIf="displayError && f.pickup_time.errors" class="help-block text-danger">
-                            <div *ngIf="f.pickup_time.errors.required">Time is required</div>
-                        </div>
-                        <div *ngIf="showloading" class="spinner-border text-primary"></div>
-                        <div *ngIf="showAvailable" class="help-block text-success">
-                            <p>{{message}}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Drop off Address-->
-
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <label for="dropoff_name">Name of dry cleaner or laundry</label>
-                        <input type="text" class="form-control form-control-lg" formControlName="dropoff_name"
-                            placeholder="Enter Name of dry cleaner or laundry" (blur)="displayError=true"
-                            [ngClass]="{ 'is-invalid': displayError && f.dropoff_name.errors, 'is-valid': displayError && f.dropoff_name.valid }">
-                        <div *ngIf="displayError && f.dropoff_name.errors" class="help-block text-danger">
-                            <div *ngIf="f.dropoff_name.errors.required">Name of dry cleaner or laundry is required</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <label for="phone">Phone No.</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <select class="form-control form-control-lg mr-1">
-                                    <option value="">US +1</option>
-                                </select>
+                    <div class="row form-group mt-2">
+                        <div class="col-sm-12">
+                            <label for="b_name">Pickup Options</label>
+                            <select class="form-control form-control-lg" formControlName="pickupoption"
+                                (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && f.pickupoption.errors, 'is-valid': displayError && f.pickupoption.valid }">
+                                <option value="">Pickup Option ...</option>
+                                <option value="Pickup from laundry or dry cleaner and drop-off to home">Pick up from laundry
+                                    or dry cleaner and
+                                    drop off to home</option>
+                                <option value="Pickup from home and drop-off to laundry or dry cleaner">Pick up from home and
+                                    drop off to laundry
+                                    or dry cleaner</option>
+                            </select>
+                            <div *ngIf="displayError && f.pickupoption.errors" class="help-block text-danger">
+                                <div *ngIf="f.pickupoption.errors.required">Pickup option isrequired</div>
                             </div>
-                            <input type="text" class="form-control form-control-lg" formControlName="phone"
-                                placeholder="Enter Phone Number" (blur)="displayError=true"
-                                [ngClass]="{ 'is-invalid': displayError && f.phone.errors, 'is-valid': displayError && f.phone.valid }">
                         </div>
-                        <div *ngIf="displayError && f.phone.errors" class="help-block text-danger">
-                            <div *ngIf="f.phone.errors.required">Enter a valid phone number to proceed</div>
+    
+                    </div>
+    
+                    <!-- Pickup Address-->
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label for="b_name">Customer Name</label>
+                            <input type="text" class="form-control form-control-lg" formControlName="pickup_name"
+                                placeholder="Enter Customer Name" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && f.pickup_name.errors, 'is-valid': displayError && f.pickup_name.valid }">
+                            <div *ngIf="displayError && f.pickup_name.errors" class="help-block text-danger">
+                                <div *ngIf="f.pickup_name.errors.required">Customer Name is required</div>
+    
+                                <input type="hidden" formControlName="service_id">
+    
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <label for="dir">Special Instruction</label>
-                        <textarea class="form-control" formControlName="instructions"></textarea>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label for="pick_up_date">Pickup Date</label>
+                            <input type="date" class="form-control form-control-lg" formControlName="pickup_date"
+                                placeholder="Enter Customer Name" (blur)="displayError=true"
+                                (change)="onChangeDate($event.target.value)"
+                                [ngClass]="{ 'is-invalid': displayError && f.pickup_date.errors, 'is-valid': displayError && f.pickup_date.valid }">
+                            <div *ngIf="displayError && f.pickup_date.errors" class="help-block text-danger">
+                                <div *ngIf="f.pickup_date.errors.required">Date is required</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="pick_up_date">Pick Time</label>
+                            <select class="form-control form-control-lg" formControlName="pickup_time"
+                                (change)="onChangeTime($event.target.value)" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && f.pickup_time.errors, 'is-valid': displayError && f.pickup_time.valid }">
+                                <option value="">Select Time ...</option>
+                                <option *ngFor="let time of time_slots" [value]="time.id">{{time.time}}</option>
+                            </select>
+                            <div *ngIf="displayError && f.pickup_time.errors" class="help-block text-danger">
+                                <div *ngIf="f.pickup_time.errors.required">Time is required</div>
+                            </div>
+                            <div *ngIf="showloading" class="spinner-border text-primary"></div>
+                            <div *ngIf="showAvailable" class="help-block text-success">
+                                <p>{{message}}</p>
+                            </div>
+                        </div>
                     </div>
-
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-12 ">
-                        <button class="btn btn-danger btn-lg btn-md mt-2 mb-2 mx-auto"
-                            [disabled]="laundryForm.invalid">Proceed
-                            to Checkout</button>
+    </div>
+                    <!-- drop-off Address-->
+                    <div class="card p-4 mb-2 ">
+                        <div class="card-header mb-2">
+                            Drop-off Details
+                        </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label for="dropoff_name">Name of dry cleaner or laundry</label>
+                            <input type="text" class="form-control form-control-lg" formControlName="dropoff_name"
+                                placeholder="Enter Name of dry cleaner or laundry" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && f.dropoff_name.errors, 'is-valid': displayError && f.dropoff_name.valid }">
+                            <div *ngIf="displayError && f.dropoff_name.errors" class="help-block text-danger">
+                                <div *ngIf="f.dropoff_name.errors.required">Name of dry cleaner or laundry is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label for="phone">Phone No.</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <select class="form-control form-control-lg mr-1">
+                                        <option value="">US +1</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control form-control-lg" formControlName="phone"
+                                    placeholder="Enter Phone Number" (blur)="displayError=true"
+                                    [ngClass]="{ 'is-invalid': displayError && f.phone.errors, 'is-valid': displayError && f.phone.valid }">
+                            </div>
+                            <div *ngIf="displayError && f.phone.errors" class="help-block text-danger">
+                                <div *ngIf="f.phone.errors.required">Enter a valid phone number to proceed</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label for="dir">Special Instruction</label>
+                            <textarea class="form-control" formControlName="instructions"></textarea>
+                        </div>
+    
                     </div>
                 </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 ">
+                            <button class="btn btn-danger btn-lg btn-md mt-2 mb-2 mx-auto"
+                                [disabled]="laundryForm.invalid">Proceed
+                                to Checkout</button>
+                        </div>
+                    </div>
+    
+                </form>
 
-            </form>
+            </div>
         </div>
 
 

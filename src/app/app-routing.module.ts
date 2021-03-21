@@ -5,8 +5,6 @@ import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { AboutComponent } from './pages/about/about.component';
 import { FaqComponent } from './pages/faq/faq.component';
-import { SqPaymentFormComponent } from './payments/sq-payment-form/sq-payment-form.component';
-import { PaypalComponent } from './payments/paypal/paypal.component';
 import { BakingComponent } from './errandServices/baking/baking.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { OrderComponent } from './pages/order/order.component';
@@ -24,6 +22,7 @@ import { StoreComponent } from './errandServices/store/store.component';
 import { StoreFormComponent } from './errandServices/store-form/store-form.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { AuthGuard } from './_helpers/auth.guard';
+import { SupportComponent } from './pages/support/support.component';
 
 
 const routes: Routes = [
@@ -35,6 +34,7 @@ const routes: Routes = [
       { path: '', redirectTo: '/', pathMatch: 'full' },
       { path: '', component: HomeComponent },
       { path: 'terms', component: TermsComponent },
+      { path: 'support', component: SupportComponent },
       { path: 'billing', component: BillingComponent, canActivate: [AuthGuard], data: { role: 'Customer' } },
       { path: 'services/baking', component: BakingComponent },
       { path: 'orders/baking', component: BakingFormComponent },
@@ -53,9 +53,8 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'faq', component: FaqComponent },
       { path: 'services/laundry', component: LaundryComponent },
+      
       { path: 'services/order', component: OrderComponent },
-      { path: 'squarepay', component: SqPaymentFormComponent },
-      { path: 'paypal', component: PaypalComponent }
     ]
   },
 

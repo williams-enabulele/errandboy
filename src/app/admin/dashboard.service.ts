@@ -34,35 +34,35 @@ export class DashboardService {
 
   get_users() {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/users/get_users.php`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   get_user(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/users/get_user.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   update_user(data) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/users/update_user.php`, data, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   delete_user(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/users/delete_user.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   get_assign_by_id(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/drivers/read_drivers_assign_one.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
@@ -70,7 +70,7 @@ export class DashboardService {
   updateStatus(data) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/orders/update_order_one.php`, data, this.httpOptions).pipe(
       
-      retry(3),
+      
       catchError(this.handleError)
     );
 
@@ -78,27 +78,27 @@ export class DashboardService {
 
   dash(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/drivers/read_dash.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   readProfile(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/auth/read_profile_one.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
   createProfile(data){
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/create_profile.php`, data,this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   updateProfile(data){
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/update_profile.php`, data,this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }

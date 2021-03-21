@@ -23,6 +23,8 @@ export class OrderDetailsComponent implements OnInit {
   showTotal = false;
   total: number;
   subTotal: number = 0;
+  showDetails= false ;
+  loading=true; 
 
   constructor(
     private route: ActivatedRoute,
@@ -35,7 +37,7 @@ export class OrderDetailsComponent implements OnInit {
 
     this.d.get_order_one(this.id).subscribe(
       res => {
-        console.log(res)
+        //console.log(res)
         this.datas = res['records']['0'];
 
       }

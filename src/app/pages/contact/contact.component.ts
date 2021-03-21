@@ -14,7 +14,7 @@ export class ContactComponent implements OnInit {
   showErr = false;
   state = false;
 
-  siteKey= "6LcWkhAaAAAAALvD3njY6bG13lAcAN25G0didpnH";un
+  siteKey= "6LdQ-joaAAAAAI7vwNwC9GvZ_7K_CIV0j0Ptc0dy";
 
   constructor(
     private fb: FormBuilder,
@@ -55,11 +55,11 @@ export class ContactComponent implements OnInit {
 
 
   resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
+    //console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
 
   errored() {
-    console.warn(`reCAPTCHA error encountered`);
+    //console.warn(`reCAPTCHA error encountered`);
   }
 
 }

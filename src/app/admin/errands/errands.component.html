@@ -55,12 +55,12 @@
                                 <div class="col-sm-12">
                                     <label for="title">Services</label>
                                     <textarea class="form-control form-control-lg" [(ngModel)]="this.editValues.title"
-                                        name="title" id="title"></textarea>
+                                        name="title" id="title" rows="4"></textarea>
 
                                     <input type="hidden" [(ngModel)]="this.editValues.id" name="id" id="id">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mt-2">
                                 <div class="col-sm-12">
                                     <button class="btn btn-block btn-lg btn-primary"
                                         [disabled]="f.invalid">Update</button>

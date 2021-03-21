@@ -39,21 +39,21 @@ export class AdminService {
 
   get_faqs() {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/faq/read_faq.php`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   update_faq(data) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/faq/update_faq.php`, data, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   create_faq(data: any) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/faq/create_faq.php`, data, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }

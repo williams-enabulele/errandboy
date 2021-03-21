@@ -28,12 +28,13 @@
                                 <p class="item-description">Distance Apart: {{distance}}</p>
                                 <p class="item-description">Duration: {{duration}}</p>
                             </div>
-
+                            <div *ngIf="couponApplied" class="total">Applied Coupon<span class="price">- ${{applied}}</span></div>
                             <div class="total">Total<span class="price">${{price}}</span></div>
+                            
                         </div>
                         <form class="card mt-4 mb-4 p-2" [formGroup]="couponForm" (ngSubmit)="getCoupons()">
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-lg " formControlName="coupon"
+                            <div class="input-group input-group-sm"> 
+                                <input type="text" class="form-control" formControlName="coupon"
                                     placeholder="Promo code">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary">Redeem</button>
@@ -44,23 +45,7 @@
                             </div>
 
                         </form>
-                        <!--   <div class="row">
-                            <div class="col-sm-12 d-flex justify-content-center">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                        class="custom-control-input" click="showPay()">
-                                    <label class="custom-control-label" for="customRadioInline1">Pay With PayPal</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="customRadioInline2" name="customRadioInline1"
-                                        class="custom-control-input" click="showSq()">
-                                    <label class="custom-control-label" for="customRadioInline2">Pay With Square</label>
-                                </div>
-
-                            </div>
-
-
-                        </div> -->
+                      
                         <div class="card-details">
                             <h3 class="title">Pay with payPal</h3>
                             <div class="row form-group text-center" id="pay">
@@ -68,7 +53,7 @@
                                     <div id="paypal-button"></div>
                                 </div>
                             </div>
-                            <h3 class="title" >Pay with Squareup</h3>
+                            <h3 class="title" >Pay with CREDIT | DEBIT CARD</h3>
                             <div>
                                 <div class="row form-group text-center" id="sq">
                                     <div class="col-sm-10 mx-auto">
@@ -79,7 +64,7 @@
                                             <div id="sq-card" class="third"></div>
                                             <div id="sq-card" class="third"></div>
                                             <button id="sq-creditcard" *ngIf="showbtn" class="btn btn-primary btn-lg mt-2 "
-                                                (click)="requestCardNonce($event)">Pay
+                                                (click)="requestCardNonce($event)" [disabled]="click">Pay
                                                 ${{price}}</button>
                                         </div>
     
@@ -87,11 +72,18 @@
                                         <input type="hidden" id="card-nonce" name="nonce">
     
                                     </div>
+                                    <div class="row form-group text-center mt-5" >
+                                        <div class="col-sm-10 mx-auto">
+                                           <button class="btn btn-sm btn-danger" (click)="clearCart()">Clear Cart</button>
+        
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
                             
                         </div>
+
                     </form>
                 </div>
             </section>

@@ -1,15 +1,31 @@
-<nav aria-label="breadcrumb" style="margin-top:20px; margin-left:95px;">
+<nav aria-label="breadcrumb" style="margin-top:20px;">
     <ol class="breadcrumb bg-transparent">
         <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Dashboard</a></li>
         <li class="breadcrumb-item active" aria-current="page">Orders</li>
     </ol>
 </nav>
 <div class="container">
-
+    <div *ngIf="loading" class="mt-5 mx-auto ">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+    </div>
     <div class="row d-flex justify-content-center">
+        <div class="col-md-9">
+            
+                <label  class="heading mt-5 text-center">Search by order #</label>
+                
+                    <input type="text" class="form-control form-control-lg" placeholder="Search..." [(ngModel)]="input" [ngModelOptions]="{standalone:true}"> 
+               
+        </div>
+       
+    </div>
+    <div class="row d-flex justify-content-center" *ngIf="showDetails">
+       
+        
         <div class="bg-white table-responsive p-5  mb-3">
             <table class="table table-striped p-3">
-                <thead>
+                <thead >
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Services</th>
@@ -20,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let o of orders | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <tr *ngFor="let o of orders | orderFilter: input | paginate: { itemsPerPage: 10, currentPage: p } ">
                         <th scope="row"><a [routerLink]="['/admin/order',o.id]">{{o.order_no}}</a></th>
                         <td scope="row">{{o.title}}</td>
                         <td scope="row">{{o.cost | currency:'USD'}}</td>

@@ -1,4 +1,10 @@
 
+::ng-deep .animated {
+  visibility: visible !important;
+}
+.hide-on-init {
+  visibility: hidden;
+}
 
 .bg-img {
   background-image: url("/assets/images/store-purchase.jpg");

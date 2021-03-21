@@ -9,7 +9,7 @@ import { ComponentRestrictions } from 'ngx-google-places-autocomplete/objects/op
 import { PricingService } from '../_services/pricing.service';
 import { LoadscriptsService } from '../_helpers/loadscripts.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { trigger, transition, useAnimation } from '@angular/animations';
+//import { trigger, transition, useAnimation } from '@angular/animations';
 import { slideInLeft } from 'ng-animate';
 import { GeneralService } from '../general.service';
 import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -28,13 +28,13 @@ var parser = require('parse-address');
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   providers: [NgbModalConfig, NgbModal, NgbPopoverConfig],
-  animations: [
+  /* animations: [
     trigger('slideInLeft', [transition('* => *', useAnimation(slideInLeft))])
-  ],
+  ], */
 })
 export class HomeComponent implements OnInit {
 
-  slideInLeft: any;
+  //slideInLeft: any;
   year: any = new Date().getFullYear();
 
 

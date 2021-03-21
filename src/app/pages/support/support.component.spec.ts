@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SqPaymentFormComponent } from './sq-payment-form.component';
+import { SupportComponent } from './support.component';
 
-describe('SqPaymentFormComponent', () => {
-  let component: SqPaymentFormComponent;
-  let fixture: ComponentFixture<SqPaymentFormComponent>;
+describe('SupportComponent', () => {
+  let component: SupportComponent;
+  let fixture: ComponentFixture<SupportComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SqPaymentFormComponent ]
+      declarations: [ SupportComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SqPaymentFormComponent);
+    fixture = TestBed.createComponent(SupportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

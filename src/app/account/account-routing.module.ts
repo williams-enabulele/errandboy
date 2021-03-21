@@ -10,6 +10,7 @@ import { AuthGuard } from '../_helpers/auth.guard';
 import { OnfileComponent } from './onfile/onfile.component';
 import { PasswordComponent } from './password/password.component';
 import { StatusComponent } from './status/status.component';
+import { BillingComponent } from '../errandServices/billing/billing.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'change-password', component: PasswordComponent },
       { path: 'my-transactions', component: PasswordComponent },
       { path: 'order-status', component: StatusComponent },
+      { path: 'billing', component: BillingComponent },
       { path: '**', component: LoginComponent }
 
     ]

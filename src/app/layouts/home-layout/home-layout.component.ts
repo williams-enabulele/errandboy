@@ -18,6 +18,8 @@ export class HomeLayoutComponent implements OnInit {
   drivers = false;
   account = false;
   showHome = false;
+  login:boolean;
+  signup:boolean;
   year: any = new Date().getFullYear();
   constructor(
     private auth: AuthService,
@@ -55,9 +57,9 @@ export class HomeLayoutComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.login=true;
+    this.signup=true;
 
-
-    
 
     this.data = localStorage.getItem("data");
     if (this.data === null) {
@@ -86,10 +88,14 @@ else if (this.userRole.data['role'] == "Driver"){
     ){
       this.showlogout = true;
       this.loggedIn = false;
+      this.login=true;
+      this.signup=true;
     } else{
       
   this.showlogout = false;
   this.loggedIn = true;
+  this.login=false;
+  this.signup=false;
     }
      
  } catch (error) {

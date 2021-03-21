@@ -1,7 +1,7 @@
 
 <div class="container mt-5">
     <div class="container">
-        <h3 class="display-4 text-center">PRIVACY POLICY</h3>
+        <h3 class="text-center">PRIVACY POLICY</h3>
     </div>
     <div class="row">
         <div class="col-12">
@@ -20,8 +20,8 @@
     <div class="row justify-content-sm-center">
         <div class="col-sm-12">
             <ngb-accordion [closeOthers]="true" activeIds="1" class="m-5">
-                <ngb-panel id={{privacy.id}} title={{privacy.title}} *ngFor="let privacy of privacies" type="primary"
-                    cardClass="text">
+                <ngb-panel id={{privacy.id}} title={{privacy.title}}  type="primary"
+                    cardClass="text" *ngFor="let privacy of privacies">
                     <ng-template ngbPanelContent>{{privacy.content}}</ng-template>
                 </ngb-panel>
             </ngb-accordion>

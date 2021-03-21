@@ -9,6 +9,7 @@ import { NgxEditorModule } from 'ngx-editor';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPrintModule } from 'ngx-print';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { OrderFilterPipe } from '../_helpers/filter.pipe';
 
 
 
@@ -39,6 +40,11 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
 import { PasswordComponent } from './password/password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
+import { TransfilterPipe } from '../_helpers/transfilter.pipe';
+import { FilterbycustPipe } from '../_helpers/filterbycust.pipe';
+
+
+
 
 
 
@@ -66,7 +72,10 @@ import { UsersComponent } from './users/users.component';
     TransactionDetailsComponent,
     PasswordComponent,
     ProfileComponent,
-    UsersComponent
+    UsersComponent,
+    OrderFilterPipe,
+    TransfilterPipe,
+    FilterbycustPipe
 
   ],
   providers: [DatePipe],
@@ -84,8 +93,6 @@ import { UsersComponent } from './users/users.component';
     NzDatePickerModule,
     NgScrollbarModule,
     NgxPrintModule,
-
-
     AlertModule.forRoot({ maxMessages: 5, timeout: 5000, position: 'right' })
   ]
 })

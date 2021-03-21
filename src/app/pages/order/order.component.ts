@@ -53,7 +53,7 @@ export class OrderComponent implements OnInit {
   get formControls() { return this.laundryForm.controls; }
 
   onSubmit() {
-
+    
     //this.check = this.donateForm.value['amount'] * 100;
     console.log(this.laundryForm.value);
     this.isSubmitted = true;

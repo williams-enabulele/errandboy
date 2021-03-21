@@ -11,9 +11,12 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./transaction-details.component.scss']
 })
 export class TransactionDetailsComponent implements OnInit {
-  @ViewChild('htmlData') htmlData: ElementRef;
+  @ViewChild('tData') tData: ElementRef;
   data: any = [];
   id: any;
+  name:any;
+  showDetails= false ;
+  loading=true;
 
   constructor(
     private t: TransactionDetailsService,
@@ -23,7 +26,10 @@ export class TransactionDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.t.get_transactions(this.id).subscribe(
+      
       res => {
+        this.loading = false;
+        this.showDetails = true;
         this.data = res["records"][0];
       }
     )
@@ -33,9 +39,10 @@ export class TransactionDetailsComponent implements OnInit {
 
   public genPDF(): void {
     window.scrollTo(0, 0);
-    html2canvas(this.htmlData.nativeElement).then(canvas => {
+    html2canvas(this.tData.nativeElement).then(canvas => {
 
       let img = canvas.toDataURL("image/png");
+      this.name = "transaction-"+this.id;
       //document.body.appendChild(canvas);
       let doc = new jsPDF();
       let width = doc.internal.pageSize.getWidth();
@@ -44,7 +51,7 @@ export class TransactionDetailsComponent implements OnInit {
       let heightRatio = height / canvas.height;
       let ratio = widthRatio > heightRatio ? heightRatio : widthRatio
       doc.addImage(img, 'JPEG', 0, 0, canvas.width * ratio, canvas.height * ratio);
-      doc.save('transaction.pdf');
+      doc.save(this.name);
 
     });
 

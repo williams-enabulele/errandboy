@@ -16,7 +16,7 @@
                 <h5 ><span style="color: #40a9ff;">Support Centre</span ></h5>
                 <ul class="list-unstyled text-small">
                     <li><a class="text-white" routerLink="/faq" routerLinkActive="active">FAQs</a></li>
-                    <li><a class="text-white disabled" routerLink="/supports" routerLinkActive="active">Supports</a></li>
+                    <li><a class="text-white disabled" routerLink="/support" routerLinkActive="active">Supports</a></li>
                     <li><a class="text-white -"  routerLink="/contact" routerLinkActive="active">Contact</a></li>
                     <li><a class="text-white disabled" routerLink="#" routerLinkActive="active">Blog</a></li>
                 </ul>
@@ -34,27 +34,47 @@
             </div>
            
         </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-sm-12 col-lg-6 text-center">
+        <iframe width="100%" height="550px" src="https://c83bd449.sibforms.com/serve/MUIEALyVIZI01cJuGI0xBNKJe5EnalB1QcHPNFdulgbHIk-S7qMMyUHTzdlXJBzYsmU5chyjKBLtdEbp6ZYCNM3ihjnDoXL1VSmkUUw3hcY0Y1BCCsx-6YOW5OyF717i05_XT-tdsaR6QQ-H5fvDWA8XMt-7L6fR2pXRvXWnco043hW4MCuqZq6gxsKpxOcw8SsQkY8BPE0Z-YyR" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
+        
+            <!-- <div class="col-sm-12 col-lg-6 text-center">
                 <h5 ><span style="color: #40a9ff;"> Subscribe To Our Newsletter</span> </h5>
             </div>
             <div class="col-sm-12 col-lg-8">
+                <form #form="ngForm" >
                 <div class="form-group p-2 inline">
                     <p class="text-center">Join our email community to be notified of our specials and new
                         services</p>
-                        <div class="input-group">    
-                    <input type="email" class="form-control form-control-lg mr-1 mb-2" id="exampleInput" placeholder="Enter Email">
-                    <div class="append">
-                     <button type="button" class="btn  btn-lg btn-primary ">Subscribe</button></div>
-                    </div>
-                     
+                        
+                            <div class="input-group" >    
+                                <input type="email" class="form-control form-control-lg mr-1 mb-2" [(ngModel)]="email"  placeholder="Enter Email" name="email" id="email">
+                                <div class="append">
+                                 <button type="button" class="btn  btn-lg btn-primary "(click)="listSubscribe(form.value)" >Subscribe</button></div>
+                                </div>
+     
+                </div>
+            </form>
+            </div>
+            <div class="alert alert-info" role="alert" *ngIf="sub">
+                You've successfully subscribed to our newsletter
+              </div>
+
+                 -->
+                
+ 
+    </footer>
+    <div class="row">
+        <div class="col-md-12 col-12 text-white">
+            <div class="row p-3">
+                <div class="col-md-6 col-12 text-right d-flex justify-content-evenly">
+                    <a href="http://twitter.com/errandboyusa" target="_blank"><i class="bi bi-twitter text-white"></i>  Twitter</a>
+                    <a href="http://faceboook.com/errandboyservices.co" target="_blank"><i class="bi bi-facebook text-white"></i>  Facebook</a>
+                    <a href="http://instagram.com/errandboyservices.co" target="_blank"><i class="bi bi-instagram text-white"></i>  Instagram</a>
+                    <a href="http://linkedin.com/errandboyservices.co" target="_blank"><i class="bi bi-linkedin text-white"></i>  Linkedin</a>
+                    <a href="http://pinterest.com/errandboyservices" target="_blank"><i class="bi bi-pinterest text-white"></i>  Pinterest</a>
                 </div>
             </div>
-                
-                
         </div>
-    </footer>
-
+    </div>
     <div class="row border-top p-2 text-white">
         <div class="col-md-6 text-center">
             <p>&copy;{{year}} | Errandboyservices: Bringing convenience to your doorstep</p>

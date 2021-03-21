@@ -39,21 +39,21 @@ export class GeneralService {
 
   get_faqs() {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/faq/read_faq.php`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   get_privacy() {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/privacy/read_privacy.php`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   get_terms() {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/terms/read_terms.php`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }

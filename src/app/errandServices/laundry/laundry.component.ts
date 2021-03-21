@@ -10,6 +10,7 @@ export class LaundryComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    scrollTo(0,0);
   }
 
 }

@@ -9,7 +9,7 @@ export const ScriptStore: Scripts[] = [
   { name: 'square', src: 'https://js.squareup.com/v2/paymentform' },
   { name: 'address-parse', src: './parse-address.js' },
   //{ name: 'paypal', src: 'https://www.paypal.com/sdk/js?client-id=AqcVCEpaRNPSEWMbX4WCLEWOHE.4Arp7bD1jo0-Oy6aI9GqDMYIRhUon&currency=USD'}
-  { name: 'paypal', src: 'https://www.paypal.com/sdk/js?client-id=AWtzBeZSgO97peytz7YRMflapKwZBp56RWxU4xxjSCuBvvyGhIdLHarMY7cX5DHgwIg8nHXD5yUa-PhV&currency=USD&disable-funding=credit,card' },
+  { name: 'paypal', src: 'https://www.paypal.com/sdk/js?client-id=ATI3HsV9msukspjnZa8UUpnpneLq110IxnCGr0MGVxnXp0ZXLckCbansYPKS3J4B0yy4w_c6jlrWDkdP&currency=USD&disable-funding=credit,card' },
 ];
 
 @Injectable({

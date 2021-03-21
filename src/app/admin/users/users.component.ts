@@ -17,8 +17,10 @@ export class UsersComponent implements OnInit {
   danger=false;
 
   constructor(
+    
     private d: DashboardService,
-    public alert: AlertService  ) { }
+    public alert: AlertService  
+    ) { }
 
   onChange(status) {
     //console.log(e.value);
@@ -50,7 +52,7 @@ export class UsersComponent implements OnInit {
       res =>{
         this.alert.success("Account successfully deleted");
         this.reload();
-        this.success = true ;
+        //this.success = true ;
       },
       err=>{
         this.danger = true 
@@ -59,10 +61,11 @@ export class UsersComponent implements OnInit {
   }
 
   change_astatus(id){
-    this.formValues = { id:id, status_id: this.status_id }
+    this.formValues = { id:id, status_id:this.status_id }
     this.d.update_user(this.formValues).subscribe(
       res =>{
-       this.success = true ;
+        this.alert.success("Account status successfully changed");
+       //this.success = true ;
         this.reload();
       },
       err=>{

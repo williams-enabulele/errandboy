@@ -3,21 +3,34 @@
         <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
     </ol>
 </nav>
-<div class="container">
+<div class="container-fluid">
+    <div *ngIf="customer">
+        <div *ngIf="showCart">
+            <div class="card">
+                <a routerLink="/billing">
+                    <div class="card-body text-white bg-info">
+                        <h5 class="card-title">Psst!</h5>
+                        <p class="card-text">You've an order yet to be completed, click to continue</p>
+                    </div>
+                </a>
+             
+            </div>
+        </div>
+    </div>
 
     <div class="row mt-4">
         <div class="col-sm-12">
             <h3 class="text-primary mt-1">My Order History</h3>
-            <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-                [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl" *ngIf="noOrder">
-                <ng-template #contentTpl>
-                    <span> You have no order yet.</span>
-                </ng-template>
-                <ng-template #footerTpl>
-                    <button nz-button nzType="primary" nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="place">Book
-                        Now</button>
-                </ng-template>
-            </nz-empty>
+            <div class="row " *ngIf="noOrder">
+                <div class="col-sm-12 d-flex justify-content-center">
+                    <img src="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg">
+                </div>
+                <div class="col-sm-12 d-flex justify-content-center">
+                    <button class="btn btn-primary"  nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="place">Book
+                        Now</button> 
+                </div>
+            </div>
+
             <nz-dropdown-menu #menu="nzDropdownMenu">
                 <ul nz-menu>
                     <li nz-menu-item routerLinkActive="active" routerLink="/orders/laundry">Laundry or dry-cleaning
@@ -39,6 +52,7 @@
                         delivery</li>
                 </ul>
             </nz-dropdown-menu>
+           
             <div *ngIf="history">
                 <div class="card mb-3" *ngFor="let data of datas | paginate: { itemsPerPage: 5, currentPage: p }">
                     <a [routerLink]="['/account/my-orders', data.id]">

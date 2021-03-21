@@ -54,6 +54,7 @@ export class MailpackageFormComponent implements OnInit {
   location: any;
   service_fee: any;
   order_no: any;
+  showForm=false;
 
   public bounds: LatLngBounds;
   public componentRestrictions: ComponentRestrictions;
@@ -88,9 +89,9 @@ export class MailpackageFormComponent implements OnInit {
     // Initialise form values 
     this.errandForm = this.fb.group({
       originAddress: ['', Validators.required],
-      fromno: ['', Validators.required],
+      fromno: [''],
       destinationAddress: ['', Validators.required],
-      tono:['', Validators.required]
+      tono:['']
     });
 
     this.couponForm = this.fb.group({
@@ -179,8 +180,9 @@ export class MailpackageFormComponent implements OnInit {
         price => {
           this.loading = false;
           this.showPrice = true;
+          this.showForm = true;
           this.service_fee = price['service_price'];
-          this.form = { order_no: this.order_no, service_id: "3", service_errand: "mailpackage Pickup and Delivery", cost: this.service_fee, location_distance: this.l_distance, destinationAddress: this.destinationAddress.nativeElement.value, originAddress: this.originAddress.nativeElement.value, duration: this.travel_duration,fromno: this.fromno, tono: this.tono  };
+          this.form = { order_no: this.order_no, service_id: 3, service_errand: "Mail | Package Pickup and Drop-off", cost: this.service_fee, location_distance: this.l_distance, destinationAddress: this.destinationAddress.nativeElement.value, originAddress: this.originAddress.nativeElement.value, duration: this.travel_duration,fromno: this.fromno, tono: this.tono  };
           //console.log(price);
         }
       )

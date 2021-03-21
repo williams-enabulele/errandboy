@@ -50,7 +50,7 @@ export class OrderStatusComponent implements OnInit {
     this.d.updateStatus(this.formValues).subscribe(
       res => {
         //console.log(res);
-        this.t.success('successfully updated', 'success')
+        this.t.success('successfully updated', 'success');
       }
     )
 

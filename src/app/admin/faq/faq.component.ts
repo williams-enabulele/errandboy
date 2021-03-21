@@ -40,6 +40,7 @@ export class FaqComponent implements OnInit {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
+    config.size ='lg';
   }
   //open method for Modal
   open(editFaq) {

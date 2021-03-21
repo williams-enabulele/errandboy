@@ -36,21 +36,21 @@ export class CouponService {
 
   read_coupon() {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/coupons/read_coupon.php`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   update_coupon(data: any) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/coupons/update_coupon.php`, data, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   create_coupon(data: any) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/coupons/create_coupon.php`, data, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
@@ -59,14 +59,14 @@ export class CouponService {
 
   read_coupon_one(id: any) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/coupons/read_one.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   delete_coupon(id: any) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/coupons/delete_coupon.php`, { 'id': id }, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
@@ -74,14 +74,14 @@ export class CouponService {
 
   get_services() {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/errands/read_errand.php`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   get_roles() {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/auth/read_roles.php`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }

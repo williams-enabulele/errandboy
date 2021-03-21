@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+/* var distance = require('google-distance-matrix');
+distance.key('AIzaSyA8TctKdNfvbEDpegU1uz8De07__biGdVw');
+distance.units('imperial'); */
+
+//const  headers = new  HttpHeaders().set("Origin", "https://errandboyservices.com/");
+
 
 
 @Injectable({
@@ -12,20 +18,21 @@ export class CalDistanceService {
 
 
 
-  // Http Options
-  httpOptions = {
+   //Http Options
+    httpOptions = {
     headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://errandboyservices.com/',
-      'Access-Control-Allow-Method': 'GET'
-      //'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'https://errandboyservices.com/',
+      'Acceess-Control-Allow-Headers':'Origin,X-requested-With,Content-Type,Accept',
+      'Cross-Origin-Resource-Policy':'cross-origin'
+
     })
-  }
-
-
-
+  }; 
+ /* 
   proxy_url = 'https://cors-anywhere.herokuapp.com/';
   url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric';
-  key = 'AIzaSyA8TctKdNfvbEDpegU1uz8De07__biGdVw';
+  key = 'AIzaSyA8TctKdNfvbEDpegU1uz8De07__biGdVw'; */
+  myurl="https://errandboyservices.com/errandboy_api/controllers/pricing/calc.php";
 
 
   constructor(
@@ -35,13 +42,12 @@ export class CalDistanceService {
 
   async calDistance(origin: string, destination: string) {
 
-    return this.http.get(`${this.proxy_url + this.url}&origins=${origin}&destinations=${destination}&key=${this.key}`);
 
-    // await this.http.get('https://jsonplaceholder.typicode.com/todos/',httpOptions).subscribe(res=>{
-    //   console.log(res)
-    // });
+    return this.http.get(`${this.myurl}?origins=${origin}&destinations=${destination}`);
+   
 
   }
+
 
 
 

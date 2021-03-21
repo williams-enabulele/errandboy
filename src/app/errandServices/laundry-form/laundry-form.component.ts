@@ -33,6 +33,7 @@ export class LaundryFormComponent implements OnInit {
   isSubmitted: any = false;
   services = [];
   time_slots = [];
+  showForm = false;
 
 
   data: object;
@@ -87,9 +88,9 @@ export class LaundryFormComponent implements OnInit {
     // Initialise form values 
     this.errandForm = this.fb.group({
       originAddress: ['', Validators.required],
-      fromno: ['', Validators.required],
+      fromno: [''],
       destinationAddress: ['', Validators.required],
-      tono:['', Validators.required]
+      tono:['']
 
     });
 
@@ -176,8 +177,9 @@ export class LaundryFormComponent implements OnInit {
           this.showbtnloading = false;
           this.loading = false;
           this.showPrice = true;
+          this.showForm = true;
           this.service_fee = price['service_price'];
-          this.form = { order_no: this.order_no, service_id: "2", service_errand: "Laundry Pickup and Delivery", cost: this.service_fee, location_distance: this.l_distance, destinationAddress: this.destinationAddress.nativeElement.value, originAddress: this.originAddress.nativeElement.value, duration: this.travel_duration, fromno: this.fromno, tono: this.tono};
+          this.form = { order_no: this.order_no, service_id: 2, service_errand: "Dry Cleaning | Laundry Pickup and Drop-off", cost: this.service_fee, location_distance: this.l_distance, destinationAddress: this.destinationAddress.nativeElement.value, originAddress: this.originAddress.nativeElement.value, duration: this.travel_duration, fromno: this.fromno, tono: this.tono};
           //console.log(price);
         }
       )

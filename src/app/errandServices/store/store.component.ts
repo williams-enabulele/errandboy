@@ -10,6 +10,7 @@ export class StoreComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    scrollTo(0,0);
   }
 
 }

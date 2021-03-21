@@ -1,0 +1,86 @@
+<div class="container">
+
+    <div class="row d-flex justify-content-center " style="margin-top: 50px;">
+        <div class="col-sm-10">
+            <h3>Support</h3>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mt-3">
+        <div class="col-sm-10">
+            <form class="form-group" [formGroup]="supportForm" (ngSubmit)="submit()">
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Enter First Name"
+                            formControlName="firstName">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Enter Last Name"
+                            formControlName="lastName">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control form-control-lg" placeholder="Enter standard email"
+                            formControlName="email">
+                    </div>
+                   
+                    <div class="col-sm-6 form-group">
+                        <label>Department <span class="text-danger">*</span></label>
+                        <select class="form-control form-control-lg" formControlName="depts">
+                            <option value="">Select...</option>
+                            <option value="Customer Service Desk">Customer Service Desk</option>
+                            <option value="Customer Billing Desk">Customer Billing Desk</option>
+                           <option value="Abuse Department">Abuse Department</option>   
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label>Subject <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Subject"
+                            formControlName="subject">
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        <label> Explain briefly what you like us to help you with <span class="text-danger">*</span></label>
+                        <textarea class="form-control form-control-lg" formControlName="message"></textarea>
+                        <pre class="text-danger">The part marked * are required</pre>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <re-captcha formControlName="recaptcha"
+                        (resolved)="resolved($event)"
+                        (error)="errored()"
+                        errorMode="handled"
+                      ></re-captcha>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary btn-lg" type="submit"
+                            [disabled]="supportForm.invalid">
+                            <div class="spinner-border text-info" role="status" *ngIf="state">
+                                <span class="visually-hidden">Loading...</span>
+                            </div> Submit</button>
+                    </div>
+
+                </div>
+                <div class="alert alert-success" role="alert" *ngIf="showAlert">
+                   Email successfully sent
+                  </div>
+                  <div class="alert alert-danger" role="alert" *ngIf="showErr">
+                    Oops something went wrong !, try again.
+                   </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

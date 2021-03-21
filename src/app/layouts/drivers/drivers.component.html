@@ -1,14 +1,14 @@
 
-<nz-layout>
-    <nz-sider nzCollapsible nzWidth="200px">
+<nz-layout class="layout">
+    <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0">
         <div class="logo"></div>
-        <ul nz-menu nzMode="inline" nzTheme="light" [nzInlineCollapsed]="isCollapsed" class="menu-style">
+        <ul nz-menu nzMode="inline" nzTheme="light" >
             <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Dashboard' : ''"
                 nzSelected routerLinkActive="active" routerLink="/drivers/dashboard">
                 <i nz-icon nzType="dashboard"></i>
                 <span>Dashboard</span>
             </li>
-            <li nz-submenu nzTitle="drivers" nzIcon="snippets">
+            <li nz-submenu nzTitle="My Account" nzIcon="snippets">
                 <ul>
 
                     <!-- <li nz-menu-item routerLinklictive="active" routerLink="/drivers/customers">Customers</li> -->
@@ -29,7 +29,7 @@
     <nz-layout>
         <nz-header>
             <div class="d-flex justify-content-between align-items-center">
-                <h3>ErrandBoy Services</h3>
+                <h3>ErrandBoy</h3>
                 <nz-button-group>
                     <button nz-button (click)="logout()">Signout</button>
                     <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">

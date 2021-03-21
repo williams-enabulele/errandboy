@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class=" text-center">PLACE YOUR ORDER
         </h1>
-        <h5 class="text-center">Bring convenience to your doorstep</h5>
+        <h5 class="text-center">Bringing convenience to your doorstep</h5>
 
     </div>
 </div>
@@ -18,13 +18,13 @@
                                 <input formControlName="tofro" class="custom-control-input" type="radio"
                                     formControlName="tofro">
                                 <label class="custom-control-label">Pickup from home and drop off to dry cleaner/laundry
-                                    and pick up
+                                    and Pickup
                                     from dry cleaner /laundry and drop off to home</label>
                             </div>
                             <div class="custom-control">
                                 <input formControlName="to" class="custom-control-input" type="radio"
                                     formControlName="to">
-                                <label class="custom-control-label">Pick up from home and drop off at dry
+                                <label class="custom-control-label">Pickup from home and drop off at dry
                                     cleaner/laundry
                                     only</label>
                             </div>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </fieldset>
-                <!-- Pick up Address-->
+                <!-- Pickup Address-->
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label for="datetime">Pickup Date</label>
@@ -45,7 +45,7 @@
                             <input formControlName="p_date" type="date" class="form-control form-control-lg">
                         </p>
                         <div *ngIf="isSubmitted && formControls.p_date.errors" class="help-block">
-                            <div *ngIf="formControls.p_date.errors.required">Pick up Date is required</div>
+                            <div *ngIf="formControls.p_date.errors.required">Pickup Date is required</div>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -53,7 +53,7 @@
                         <p [ngClass]="{ 'has-error': isSubmitted && formControls.p_time.errors }">
                             <input formControlName="p_time" type="time" class="form-control form-control-lg"></p>
                         <div *ngIf="isSubmitted && formControls.p_time.errors" class="help-block">
-                            <div *ngIf="formControls.p_time.errors.required">Pick up Time is required</div>
+                            <div *ngIf="formControls.p_time.errors.required">Pickup Time is required</div>
                         </div>
                     </div>
                 </div>

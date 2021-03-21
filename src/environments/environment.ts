@@ -4,8 +4,8 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'https://errandboyservices.com'
-   //apiUrl: 'http://localhost' 
+  //apiUrl: 'https://errandboyservices.com'
+   apiUrl: 'http://localhost' 
 };
 
 /*

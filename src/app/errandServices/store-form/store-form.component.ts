@@ -52,6 +52,7 @@ export class StoreFormComponent implements OnInit {
   location: any;
   service_fee: any;
   order_no: any;
+  showForm=false;
 
   showbtnloading = false;
   showbutton = true;
@@ -96,9 +97,9 @@ export class StoreFormComponent implements OnInit {
     // Initialise form values 
     this.errandForm = this.fb.group({
       originAddress: ['', Validators.required],
-      fromno: ['', Validators.required],
+      fromno: [''],
       destinationAddress: ['', Validators.required],
-      tono:['', Validators.required]
+      tono:['']
 
     });
 
@@ -200,8 +201,9 @@ export class StoreFormComponent implements OnInit {
           this.showbtnloading = false;
           this.loading = false;
           this.showPrice = true;
+          this.showForm = true;
           this.service_fee = price['service_price'];
-          this.form = { order_no: this.order_no, service_id: "6", service_errand: "store Pickup and Delivery", cost: this.service_fee, location_distance: this.l_distance, destinationAddress: this.destinationAddress.nativeElement.value, originAddress: this.originAddress.nativeElement.value, duration: this.travel_duration,fromno:this.fromno , tono: this.tono  };
+          this.form = { order_no: this.order_no, service_id: 6, service_errand: "Store Pickup or Purchase and delivery", cost: this.service_fee, location_distance: this.l_distance, destinationAddress: this.destinationAddress.nativeElement.value, originAddress: this.originAddress.nativeElement.value, duration: this.travel_duration,fromno:this.fromno , tono: this.tono  };
           //console.log(price);
         }
       )

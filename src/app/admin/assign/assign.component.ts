@@ -40,6 +40,7 @@ export class AssignComponent implements OnInit {
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
+    config.size = 'lg';
   }
 
   ngOnInit(): void {
@@ -132,16 +133,19 @@ export class AssignComponent implements OnInit {
 
       res => {
         //console.log(res);
-        this.alertService.success('Selected assign successfully deleted!');
         this.reloadAssign();
+        this.alertService.success('Selected assign successfully deleted!');
+        
       }
     );
   }
   updateAssign(e: NgForm) {
     this.assign.edit_assign(e.value).subscribe(
       res => {
-        this.alertService.success("updated!");
+
         this.reloadAssign();
+        this.alertService.success("updated!");
+        
 
 
 
@@ -187,8 +191,8 @@ export class AssignComponent implements OnInit {
     this.assign.create_assign(this.formvalue).subscribe(
       res => {
         //console.log(res);
-        this.alertService.success('Driver successfully assigned!');
         this.reloadAssign();
+        this.alertService.success('Driver successfully assigned!');
         f.reset(f.value);
         this.show = false;
 

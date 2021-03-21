@@ -41,6 +41,7 @@ export class PricingComponent implements OnInit {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
+    config.size ='lg';
   }
   //open method for Modal
   open(editPricing) {
@@ -57,6 +58,8 @@ export class PricingComponent implements OnInit {
       base_price: ['', Validators.required],
       per_mile: ['', Validators.required],
       service: ['', Validators.required],
+      charges: ['', Validators.required],
+      tax: ['', Validators.required],
 
 
     });
@@ -66,6 +69,8 @@ export class PricingComponent implements OnInit {
       per_mile: ['', Validators.required],
       service: ['', Validators.required],
       id: ['', Validators.required],
+      charges: ['', Validators.required],
+      tax: ['', Validators.required],
 
 
     });

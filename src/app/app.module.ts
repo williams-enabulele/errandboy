@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { JwtModule } from "@auth0/angular-jwt";
+
 export function tokenGetter() {
    return localStorage.getItem("token");
 }
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OwlModule } from 'ngx-owl-carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,19 +38,17 @@ import { DriversLayoutComponent } from './layouts/drivers/drivers.component';
 
 
 import { AppRoutingModule } from './app-routing.module';
+import { UserIdleModule } from 'angular-user-idle';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { NavComponent } from './_partials/nav/nav.component';
 import { FooterComponent } from './_partials/footer/footer.component';
-import { OrdersComponent } from './orders/orders.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { AboutComponent } from './pages/about/about.component';
 import { FaqComponent } from './pages/faq/faq.component';
 import { ScrollspyDirective } from './_helpers/scrollspy.directive';
-import { SqPaymentFormComponent } from './payments/sq-payment-form/sq-payment-form.component';
-import { PaypalComponent } from './payments/paypal/paypal.component';
 import { AlertModule } from 'ngx-alerts';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { SidebarModule } from 'ng-sidebar';
@@ -85,6 +84,12 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 import { AvatarModule } from 'ngx-avatar';
+import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
+import { SupportComponent } from './pages/support/support.component';
+import { TokeninterceptorService } from './_services/tokeninterceptor.service';
+//import { OnexpiredInterceptor } from './_helpers/onexpired.interceptor';
+
+
 
 registerLocaleData(en);
 
@@ -99,7 +104,6 @@ registerLocaleData(en);
       NavComponent,
       FooterComponent,
       AccountComponent,
-      OrdersComponent,
       TermsComponent,
       PrivacyComponent,
       AboutComponent,
@@ -107,8 +111,6 @@ registerLocaleData(en);
       ScrollspyDirective,
       LaundryComponent,
       ContactComponent,
-      SqPaymentFormComponent,
-      PaypalComponent,
       AdminComponent,
       DriversComponent,
 
@@ -130,7 +132,9 @@ registerLocaleData(en);
       PrescriptionComponent,
       PrescriptionFormComponent,
       StoreComponent,
-      StoreFormComponent
+      StoreFormComponent,
+      SupportComponent,
+     // OnexpiredInterceptor
 
 
    ],
@@ -167,6 +171,7 @@ registerLocaleData(en);
       BrowserAnimationsModule,
       NgxMaskModule.forRoot(),
       ToastrModule.forRoot(),
+      AnimateOnScrollModule.forRoot(),
       NgxEditorModule.forRoot({
          schema, // optional scheama, see https://sibiraj.dev/ngx-editor/additional-documentation/schema.html
          plugins: [
@@ -199,14 +204,19 @@ registerLocaleData(en);
             blacklistedRoutes: ["http://example.com/examplebadroute/"],
          },
       }),
+      UserIdleModule.forRoot({idle: 600, timeout: 300, ping: 120}),
 
       // FontAwesomeModule
    ],
    providers: [DataserviceService, { provide: NZ_I18N, useValue: en_US },
       {
          provide: RECAPTCHA_SETTINGS,
-         useValue: { siteKey: '6LcWkhAaAAAAALvD3njY6bG13lAcAN25G0didpnH' } as RecaptchaSettings,
-       },],
+         useValue: { siteKey: '6LdQ-joaAAAAAI7vwNwC9GvZ_7K_CIV0j0Ptc0dy' } as RecaptchaSettings,
+       },
+      
+      {
+        provide: HTTP_INTERCEPTORS, useClass: TokeninterceptorService, multi:true 
+      }],
 
    bootstrap: [
       AppComponent

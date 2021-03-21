@@ -28,7 +28,7 @@ export class ErrandsService {
       reportProgress: true,
       observe: 'events'
     }).pipe(
-      retry(3),
+      
       catchError(this.errorMgmt)
     )
   }
@@ -36,28 +36,28 @@ export class ErrandsService {
 
   getServices() {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/errand_services/read_services.php`).pipe(
-      retry(3),
+      
       catchError(this.errorMgmt)
     );
   }
 
   getServicesById(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/errands/read_errand_one.php?id=${id}`).pipe(
-      retry(3),
+      
       catchError(this.errorMgmt)
     );
   }
 
   deleteServiceById(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/errands/delete_services.php?id=${id}`).pipe(
-      retry(3),
+      
       catchError(this.errorMgmt)
     );
   }
 
   updateService(data) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/errand_services/update_service.php`, data).pipe(
-      retry(3),
+      
       catchError(this.errorMgmt)
     );
   }

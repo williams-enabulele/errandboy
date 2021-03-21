@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { throwError, Observable, BehaviorSubject, of } from 'rxjs';
+import { throwError, Observable, BehaviorSubject, of, Subject, Subscription } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Role } from '../_models/role';
@@ -10,8 +10,8 @@ import { User } from '@app/_models/user';
 import { JwtHelperService } from "@auth0/angular-jwt";
 const helper = new JwtHelperService();
 import { delay } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import { WatchService } from './watch.service';
+
+
 
 
 @Injectable({ providedIn: 'root' })
@@ -19,8 +19,10 @@ export class AuthService {
 
   redirectUrl: any;
   timeout: any;
-  subscription = new Subscription;
-  uToken;
+  user: any;
+  authToken: any;
+  tokenSubscription = new Subscription()
+  private userLoggedIn = new Subject<boolean>();
 
 
 
@@ -28,10 +30,13 @@ export class AuthService {
     private router: Router,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private watch: WatchService,
+    private jwtHelper: JwtHelperService
+    
 
 
-  ) { }
+  ) { 
+    this.userLoggedIn.next(false);
+  }
 
 
   get isLoggedIn(): boolean {
@@ -77,14 +82,14 @@ export class AuthService {
   verify_otp(otp) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/auth/verify_otp.php?otp=${otp}`, this.httpOptions)
       .pipe(
-        retry(3),
+        
         catchError(this.handleError)
       );
   }
   activate_account(otp) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/auth/activate_account.php?otp=${otp}`, this.httpOptions)
       .pipe(
-        retry(3),
+        
         catchError(this.handleError)
       );
   }
@@ -92,7 +97,7 @@ export class AuthService {
   forgot_password(data) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/forgot_password.php`, data, this.httpOptions)
       .pipe(
-        retry(3),
+        
         catchError(this.handleError)
       );
   }
@@ -100,7 +105,7 @@ export class AuthService {
   reset_password(data) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/reset_password.php`, data, this.httpOptions)
       .pipe(
-        retry(3),
+        
         catchError(this.handleError)
       );
   }
@@ -109,7 +114,7 @@ export class AuthService {
   changePassword(data){
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/change_password.php`, data, this.httpOptions)
       .pipe(
-        retry(3),
+        
         catchError(this.handleError)
       );
   }
@@ -117,14 +122,14 @@ export class AuthService {
   newPassword(data){
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/new_password.php`, data, this.httpOptions)
       .pipe(
-        retry(3),
+        
         catchError(this.handleError)
       );
   }
   signup(data: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/errandboy_api/controllers/auth/register.php`, data, this.httpOptions)
       .pipe(
-        retry(3),
+        
         catchError(this.handleError)
       );
   }
@@ -135,14 +140,36 @@ export class AuthService {
   }
 
 
+  
+  setUserLoggedIn(userLoggedIn: boolean) {
+    this.userLoggedIn.next(userLoggedIn);
+  }
+
+  getUserLoggedIn(): Observable<boolean> {
+    return this.userLoggedIn.asObservable();
+  }
+
+ 
+
+  expirationCounter(timeout) {
+    this.tokenSubscription.unsubscribe();
+    this.tokenSubscription = of(null).pipe(delay(timeout)).subscribe((expired) => {
+      console.log('EXPIRED!!');
+      this.logout();
+      //this.router.navigate(['/auth/signin']);
+    });
+  }
 
   //After login save token and other values(if any) in localStorage
   setUser(resp: User) {
-    localStorage.setItem('token', resp.token);
-    /*   this.uToken = helper.decodeToken(localStorage.getItem('token'));
-      this.timeout = helper.getTokenExpirationDate(this.uToken).valueOf() - new Date().valueOf(); */
-    //console.log(this.timeout);
+
+    //this.timeout = this.jwtHelper.getTokenExpirationDate(resp.token).valueOf() - new Date().valueOf();
+    this.authToken = resp.token;
+    /* this.user = user;
+    this.emit({ username: this.user.username }); */
     //this.expirationCounter(this.timeout);
+    localStorage.setItem('token', resp.token);
+   
     let params = this.route.snapshot.queryParams;
 
     if (resp.role == Role.Customer) {
@@ -153,7 +180,7 @@ export class AuthService {
       }
 
       if (this.redirectUrl) {
-        console.log(this.redirectUrl);
+       // console.log(this.redirectUrl);
         this.router.navigateByUrl(this.redirectUrl,).catch(
           () => this.router.navigate(['/billing']))
       } else {
@@ -199,21 +226,15 @@ export class AuthService {
 
   }
 
-  expirationCounter(timeout) {
-    this.subscription.unsubscribe();
-    this.subscription = of(null).pipe(delay(timeout)).subscribe((expired) => {
-      console.log('EXPIRED');
-      this.logout();
-    });
 
-  }
 
   logout() {
     // remove user from local storage to log user out
+    this.tokenSubscription.unsubscribe();
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     this.router.navigate(['/auth/signin']);
-    this.watch.setUserLoggedIn(false);
+   
   }
 
 

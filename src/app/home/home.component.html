@@ -1,11 +1,11 @@
 <div class="container-fluid bg-img p-4" style="margin-top: -10px;">
-  <div class="row justify-content-sm-center" style="padding-top: 160px;">
+  <div class="row hide-on-init justify-content-sm-center" style="padding-top: 160px;">
     <div class="col-sm-8 text-center">
-      <h2 class=" text-center text-white">WE ARE HERE TO HELP YOU</h2>
-      <h4 class="subtitle font-weight-normal text-center text-white" style="padding-top: 15px; opacity:0.8"><i>
+      <h2 class=" text-center text-white" animateOnScroll  offset="200" animationName="animated animate__slideInUp ">WE ARE HERE TO HELP YOU</h2>
+      <h4 class="subtitle font-weight-normal text-center text-white" style="padding-top: 15px; opacity:0.8" animateOnScroll  offset="200" animationName="animated animate__slideInUp "><i>
         Errandboyservices
         offers pickup and delivery
-        Services for individuals,disabled, and businesses. Whether you need to pick up a prescription from a local
+        Services for individuals,disabled, and businesses. Whether you need to pickup a prescription from a local
         pharmacy, or have your laundry
         picked up and delivered to you, Errandboyservices Will take care of it at the fastest time and least cost.
         Below is the full list of services we offer for your convenience.</i>
@@ -15,7 +15,7 @@
 
   </div>
 </div>
-<div class="row justify-content-center p-4">
+<div class="row  justify-content-center p-4">
   <div class="col-sm-8 d-flex justify-content-center">
     <div class="nav-item" ngbDropdown display="dynamic" placement="top">
       <a class="btn btn-danger btn-lg text-center text-white" tabindex="0" ngbDropdownToggle id="navbarDropdown3"
@@ -45,19 +45,19 @@
 <!-- Services Section STarts-->
 <div class="container-fluid bg-white">
   <div class="container">
-    <div class="row mx-auto text-center p-5">
+    <div class="row  mx-auto text-center p-5">
       <div class="col-sm-12">
         <h2 class="mt-4 mx-auto">SERVICES</h2>
       </div>
     </div>
-    <div class="row d-flex justify-content-center" [@slideInLeft]="slideInLeft">
+    <div class="row hide-on-init d-flex justify-content-center" animateOnScroll  offset="200" animationName="animated animate__slideInUp " >
       <div class="col-sm-12 col-md-6 mb-3">
         <div class="card">
           <!--tips: add .text-center,.text-right to the .card to change card text alignment-->
           <img src="./assets/images/prescription pickup photo.jpg" class="card-img border-0" alt="prescription"
             style="object-fit: cover; height:320px;">
           <div class="card-body text-center">
-            <h5 class="card-title">Medication | Prescription Pick-up & Delivery</h5>
+            <h5 class="card-title">Medication | Prescription Pickup & Delivery</h5>
             <p class="card-text">Do you need to pick up medication or prescription from a local pharmacy?</p>
             <a href="#" class="btn btn-primary" routerLink="services/prescription">Learn More</a>
           </div>
@@ -69,7 +69,7 @@
           <img src="./assets/images/laundry pickup photo.jpg" class="card-img border-0" alt="prescription"
             style="object-fit: cover; height:320px;">
           <div class="card-body text-center">
-            <h5 class="card-title">Dry Cleaning | Laundry Pick up & Drop off</h5>
+            <h5 class="card-title">Dry Cleaning | Laundry Pickup & Drop-off</h5>
             <p class="card-text">Do you need to take your laundry to a local dry cleaner or laundry or have it picked up
               and
               delivered to you?
@@ -81,7 +81,7 @@
 
     </div>
 
-    <div class="row" [@slideInLeft]="slideInLeft">
+    <div class="row hide-on-init d-flex justify-content-center" animateOnScroll  offset="200" animationName="animated animate__slideInUp ">
 
       <div class="col-sm-12 col-md-6 mb-3">
         <div class="card">
@@ -90,7 +90,7 @@
             style="object-fit: cover; height:320px;">
           <div class="card-body text-center">
             <h5 class="card-title">Mail | Package
-              Pick-up & Drop off</h5>
+              Pickup & Drop-off</h5>
             <p class="card-text">Do you need your mail or package to be picked up and delivered to you?
             </p>
             <a href="#" class="btn btn-primary" routerLink="services/mail-package">Learn More</a>
@@ -104,8 +104,8 @@
             style="object-fit: cover; height:320px;">
           <div class="card-body text-center">
             <h5 class="card-title">Bakery
-              Pick-up & Drop off</h5>
-            <p class="card-text">Need to pick a bakery from a local store?
+              Pickup & Drop-off</h5>
+            <p class="card-text">Need to pick up a Bakery from a local store?
             </p>
             <a href="#" class="btn btn-primary" routerLink="services/baking">Learn More</a>
           </div>
@@ -116,7 +116,7 @@
 
     </div>
 
-    <div class="row" [@slideInLeft]="slideInLeft">
+    <div class="row hide-on-init " animateOnScroll  offset="200" animationName="animated animate__slideInUp ">
 
 
       <div class="col-sm-12 col-md-6 mb-3">
@@ -125,8 +125,8 @@
           <img src="./assets/images/catering pickup photo.jpg" class="card-img border-0" alt="catery"
             style="object-fit: cover; height:320px;">
           <div class="card-body text-center">
-            <h5 class="card-title">Catery Pick-up & Drop off</h5>
-            <p class="card-text">Need your catery to be pick up and delivered for you?
+            <h5 class="card-title">Catering Pickup & Drop-off</h5>
+            <p class="card-text">Need your catering to be picked up and delivered for you?
             </p>
             <a href="#" class="btn btn-primary" routerLink="services/catering">Learn More</a>
           </div>
@@ -138,10 +138,10 @@
           <img src="./assets/images/store pickup photo.jpg" class="card-img border-0" alt="prescription"
             style="object-fit: cover; height:320px;">
           <div class="card-body text-center">
-            <h5 class="card-title">Store Pick up or Purchase and delivery</h5>
+            <h5 class="card-title">Store Pickup or Purchase and delivery</h5>
             <p class="card-text">Need to buy some few items from a local store, such as groceries, daily, poultry,
               alcohol, bakery, household item? or
-              have picked up and delivered to you?
+              have them picked up and delivered to you?
             </p>
             <a href="#" class="btn btn-primary" routerLink="services/store-purchase">Learn More</a>
           </div>
@@ -189,7 +189,7 @@
   <div class="container">
     <div class="testimonial py-5">
       <div class="container">
-        <div class="row">
+        <div class="row hide-on-init" animateOnScroll  offset="200" animationName="animated animate__slideInUp ">
           <div class="col-lg-5 col-md-6 mb-3">
             <h5 class="mt-4">What Customers Say</h5>
             <span class="devider bg-info d-inline-block my-3"></span>
@@ -204,7 +204,7 @@
               <div class="item">
                 <div class="card card-shadow border-0 mb-4 position-relative">
                   <div class="p-4">
-                    <p class="font-weight-light text-primary">Errandboy services is top notch, pick up and delivery was
+                    <p class="font-weight-light text-primary">Errandboy services is top notch, pickup and delivery was
                       smooth, I
                       recommend.
                     </p>
@@ -229,15 +229,15 @@
 </div>
 <div class="container-fluid m-0 mb-0" style="background-color: #fff;">
   <div class="container m-0">
-    <div class="row d-flex justify-content-center">
-      <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center"
+    <div class="row hide-on-init d-flex justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" animateOnScroll  offset="200" animationName="animated animate__slideInUp "
         style="background-image: url('/assets/images/hero.png'); height: 300px; width:100%; background-size:contain; background-position:center;  background-repeat: no-repeat;">
 
       </div>
-      <div class="col-sm-12 col-md-7">
+      <div class="col-sm-12 col-md-7" animateOnScroll  offset="200" animationName="animated animate__slideInUp ">
         <h3 class="mb-3 mt-3" style="color: #ff0039;;">Try Our Service Fee Calculator</h3>
         <form [formGroup]="errandForm" (ngSubmit)="onSubmit()">
-          <div class="form-group row mt-2">
+          <div class="form-group row  mt-2">
             <div class="col-sm-12">
               <p [ngClass]="{'is-invalid': isSubmitted && formControls.errandService.errors }" class="mb-0">
                 <select class="form-control " formControlName="errandService" #errandService>
@@ -250,11 +250,11 @@
               </div>
             </div>
           </div>
-          <div class="form-group row mt-2">
+          <div class="form-group row  mt-2">
             <div class="col-sm-12">
               <p [ngClass]="{ 'is-invalid': isSubmitted && formControls.pickupAddress.errors }" class="mb-0">
                 <input type="text" #originAddress class="form-control" formControlName="pickupAddress"
-                  placeholder="Enter Pick up Address" ngx-google-places-autocomplete #placesRef="ngx-places"
+                  placeholder="Enter pickup Address" ngx-google-places-autocomplete #placesRef="ngx-places"
                   (onAddressChange)="handleAddressChange($event)">
               </p>
               <div *ngIf="isSubmitted && formControls.pickupAddress.errors" class="invalid-feedback">
@@ -263,7 +263,7 @@
 
             </div>
           </div>
-          <div class="form-group row mt-2">
+          <div class="form-group row  mt-2">
             <div class="col-sm-12">
               <p [ngClass]="{ 'is-invalid': isSubmitted && formControls.dropoffAddress.errors }" class="mb-0">
                 <input type="text" #destinationAddress class="form-control" formControlName="dropoffAddress"

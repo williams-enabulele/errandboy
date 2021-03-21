@@ -5,7 +5,7 @@
     </ol>
 </nav>
 <div class="container">
-    <div class="row">
+<!--     <div class="row">
         <div class="col-sm-12 mx-auto">
 
             <form class="form-inline">
@@ -21,7 +21,7 @@
             </form>
 
         </div>
-    </div>
+    </div> -->
     <div class="row" *ngIf="showSpinner " style="margin-top:35px">
         <div class="col-sm-12 d-flex justify-content-center">
             <div class="spinner-border text-primary" role="status">
@@ -30,9 +30,11 @@
         </div>
     </div>
     <div *ngIf="showAfterLoading">
-        <div class="row col mt-5 mb-2">
-            <button class="btn  btn-outline btn-lg btn-primary" (click)="open(addAssignModal)">Assign
-                Drivers</button>
+        <div class="row mt-5 mb-2">
+            <div class="col-sm-6">
+                <button class="btn  btn-outline btn-lg btn-primary" (click)="open(addAssignModal)">Assign
+                    Drivers</button>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -87,7 +89,7 @@
                 <div class="col-sm-12">
                     <form #f="ngForm" (ngSubmit)="d('Cross click')">
 
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-sm-12">
                                 <label>Drivers</label>
                                 <select class="form-control mb-1" name="drivers" ngModel>
@@ -97,7 +99,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-sm-12">
                                 <label>Orders</label>
                                 <select class="form-control mb-1" name="ord" [(ngModel)]="ord" (change)="display(ord)">
@@ -105,7 +107,7 @@
                                     <option value='{
 	"orders": "<strong>Service:</strong><br>{{order.service}}<br><strong>From:</strong><br>{{order.from}}<br><strong>To:</strong><br>{{order.to}}<br><strong>Time:</strong><br>{{order.time_selected}}<br><strong>Status:</strong><br>{{order.status}}",
 	"id": "{{order.id}}"
-}' *ngFor="let order of orders">{{order.status}}: {{order.service}}
+}' *ngFor="let order of orders">{{order.status}}: {{order.order_no}}
                                     </option>
                                 </select>
                             </div>
@@ -116,7 +118,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 mt-2">
                                 <label>Status</label>
                                 <select class="form-control mb-1 " name="status" ngModel>
                                     <option value="">...</option>
@@ -125,7 +127,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row mt-2">
                             <div class="col-sm-12">
                                 <button class="btn btn-block btn-lg btn-primary" (click)="addAssign(f)"
                                     [disabled]="f.invalid">Submit</button>
@@ -153,7 +155,7 @@
                                 <span class="sr-only">Loading...</span>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2" >
                             <div class="col-sm-12">
                                 <select class="form-control mb-1" name="drivers" ngModel>
                                     <option value="">Drivers</option>
@@ -161,7 +163,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-sm-12">
                                 <select class="form-control mb-1" name="orders" ngModel>
                                     <option value="">Orders</option>
@@ -169,7 +171,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-sm-12">
                                 <select class="form-control mb-1" name="status" ngModel>
                                     <option value="">Status</option>
@@ -179,7 +181,7 @@
                         </div>
 
 
-                        <div class="form-group row">
+                        <div class="form-group row mt-2">
                             <div class="col-sm-12">
                                 <button class="btn btn-block btn-lg btn-primary"
                                     [disabled]="editAssignForm.invalid">Update</button>

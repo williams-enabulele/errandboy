@@ -28,6 +28,7 @@ export class ErrandsComponent implements OnInit {
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
+    config.size = 'lg';
   }
 
   //open method for Modal

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
-import { WatchService } from '../../_services/watch.service';
 import { ToastrService } from 'ngx-toastr';
 import { AlertService } from 'ngx-alerts';
+import { Observable, Subject } from 'rxjs';
 
 
 @Component({
@@ -20,8 +20,10 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   error = '';
   alert_login = false;
+ 
 
   displayError = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -30,8 +32,11 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     private alert: AlertService,
-    private watch: WatchService,
-  ) { }
+
+  ) { 
+    
+  }
+
 
   ngOnInit(): void {
 
@@ -49,7 +54,7 @@ export class LoginComponent implements OnInit {
         ;
     }
   }
-
+  
 
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
@@ -69,7 +74,7 @@ export class LoginComponent implements OnInit {
         //console.log(response);
         if (response.status == 'Success') {
           this.authService.setUser(response);
-          this.watch.setUserLoggedIn(true);
+          this.authService.setUserLoggedIn(true);
           this.alert.success("Successfully logged in!");
           //console.log(this.authService.decode());
         }

@@ -41,7 +41,7 @@ export class BillingComponent implements OnInit {
 
 
   data: any = {};
-  price: any;
+  price: number;
   service: any;
   total: any;
   pickup: any;
@@ -56,11 +56,15 @@ export class BillingComponent implements OnInit {
   pickupAddress: any;
   dropoffAddress: any;
   location: any;
-  service_fee: any;
+  service_fee: number ;
   order_no: any;
   customer_id: any;
-  discount: any;
+  discount: number;
   valid_till: any;
+  type:any;
+  applied:number;
+  couponApplied = false;
+  form: any;
   
 
   //Paypal Returned Var on succesful payment
@@ -91,7 +95,7 @@ export class BillingComponent implements OnInit {
     private route: Router,
     private spinner: NgxSpinnerService
   ) { }
-
+  click = false;
   async ngOnInit(): Promise<void> {
 
    
@@ -100,6 +104,7 @@ export class BillingComponent implements OnInit {
     this.customer_id = user.data['id'];
 
     this.data = JSON.parse(localStorage.getItem('data'));
+   
     //console.log(this.data);
     this.service = this.data.service_errand;
     this.price = this.data.cost;
@@ -116,11 +121,13 @@ export class BillingComponent implements OnInit {
 
 
     const that = this;
-    await this.sqService.loadScript("square-sandbox");
+    //await this.sqService.loadScript("square-sandbox");
+    await this.sqService.loadScript("square");
+
     
     this.paymentForm = new SqPaymentForm({
-      applicationId: 'sandbox-sq0idb-JI0NApk3nQ2jha4vCH7rxA',
-      //applicationId: 'sq0idp-DfvovqF3rZjHSElYpb7esg',
+     //applicationId: 'sandbox-sq0idb-JI0NApk3nQ2jha4vCH7rxA',
+      applicationId: 'sq0idp-DfvovqF3rZjHSElYpb7esg',
       autoBuild: false,
       
       // Customize the CSS for SqPaymentForm iframe elements
@@ -165,8 +172,8 @@ export class BillingComponent implements OnInit {
       customer_id: this.customer_id,
       pickup_name: this.data.pickup_name,
       dropoff_name: this.data.dropoff_name,
-      cost: this.data.cost,
       duration: this.data.duration,
+      cost: this.price,
       location_duration: this.data.location_distance,
       destinationAddress: this.data.destinationAddress,
       fromno: this.data.fromno,
@@ -190,10 +197,21 @@ export class BillingComponent implements OnInit {
           purchase_units: [{
 
             amount: {
-              value: that.data.cost
+              value: that.price
             }
           }]
         });
+      },
+
+      onCancel: function (data)  {
+        // Show a cancel page, or return to cart
+        that.route.navigateByUrl("/");
+        localStorage.removeItem('data');
+       },
+       onError: function (err) {
+        // For example, redirect to a specific error page
+       
+       that.alert.danger("Oops!, something went wrong ,try again ");
       },
 
       // Finalize the transaction
@@ -202,24 +220,24 @@ export class BillingComponent implements OnInit {
           // Show a success message to the buyer
           //console.log(details);
 
-          that.pp_status = details["data"]["status"];
-          that.pp_id = details["data"]["id"];
-          that.pp_create_time = details["data"]["create_time"];
-          that.pp_update_time = details["data"]["update_time"];
-          that.pp_amount = details["data"]["payer"]["purchase_units"][1]["amount"]["value"];
-          that.pp_currency = details["data"]["payer"]["purchase_units"][1]["amount"]["currency_code"];
-          that.pp_descriptor =  details["data"]["payer"]["payments"]["captures"][1]["id"];
-          that.pp_link =  details["data"]["payer"]["links"][0]["href"];
+          that.pp_status = details["status"];
+          that.pp_id = details["id"];
+          that.pp_create_time = details["create_time"];
+          that.pp_update_time = details["update_time"];
+          that.pp_amount = details["purchase_units"][0]["amount"]["value"];
+          that.pp_currency = details["purchase_units"][0]["amount"]["currency_code"];
+          that.pp_descriptor =  details["payer"]["payer_id"];
+          that.pp_link =  details["links"][0]["href"];
 
 
           that.pp_data = {
             transaction_id: that.pp_id, created_at: that.pp_create_time, updated_at: that.pp_update_time, amount: that.pp_amount, currency: that.pp_currency, t_status: that.pp_status, source_type: that.pp_descriptor, receipt_url: that.pp_link
           };
 
-          console.log(that.pp_data);
+          //console.log(that.pp_data);
 
           that.all_data = { ...that.form, ...that.pp_data };
-          console.log(that.all_data);
+          //console.log(that.all_data);
           that.createOrder_paypal();
         });
       }
@@ -227,7 +245,7 @@ export class BillingComponent implements OnInit {
   }
 
 
-form: any;
+
 
   
   requestCardNonce(e) {
@@ -241,6 +259,7 @@ form: any;
 
 
   createOrder() {
+    this.click = true;
     this.spinner.show();
     window.scrollTo(0, 0);
     //console.log(this.form);
@@ -248,18 +267,25 @@ form: any;
       res => {
         //console.log(res);
         this.spinner.hide();
+        this.click = false;
         this.route.navigateByUrl("/account/result");
         localStorage.removeItem('data');
         //this.alert.success('Your Order has been successfully booked');
       },
       err =>{
         this.spinner.hide();
+        this.click = false;
+        this.alert.danger("Oops!,something went wrong");
 
       }
     )
 
   }
-
+  
+clearCart(){
+  this.route.navigateByUrl("/");
+  localStorage.removeItem('data');
+}
 
   createOrder_paypal() {
     
@@ -286,20 +312,46 @@ form: any;
       res => {
         ////console.log(res);
         this.discount = res["records"]["0"]["discount"];
+        this.type = res["records"]["0"]["type"];
         ////console.log(this.discount);
-        if (this.discount !== "") {
-          this.service_fee = Number(this.service_fee) - Number(this.discount);
-          ////console.log(this.service_fee);
+        if (this.type == "percentage") {
+          this.price = this.price - (this.price * this.discount/100);
+          this.applied = this.price * this.discount/100;
+          //update current price 
+          let v = localStorage.getItem('data');
+          v = v?JSON.parse(v):{};
+          v['cost'].value = this.price;
+          localStorage.setItem('data',JSON.stringify(v));
+
+          this.couponApplied = true;
+          ////console.log(this.price);
+        }
+
+        if (this.type == "fixed") {
+          this.price = this.price - this.discount;
+          this.form['cost'] = this.price;
+          this.applied = this.price - (this.price - this.discount);
+          this.couponApplied = true;
+          ////console.log(this.price);
+
+          //update current price 
+          let v = localStorage.getItem('data');
+          v =v?JSON.parse(v):{};
+          v['cost'].value=this.price;
+          localStorage.setItem('data',JSON.stringify(v));
+
         }
 
         if (res["records"]["0"]["valid_till"] == "expired") {
           this.discount = 0;
+          this.applied = 0;
+
           this.valid_till = "Oops, this coupon code has expired, try another!";
           this.showError = true;
         }
         if (res["records"]["0"]["valid_till"] == "used") {
           this.discount = 0;
-          this.valid_till = "Oops,this coupon code has been used by you, try another!";
+          this.valid_till = "Oops,this coupon code has been used or only applicable to another service";
           this.showError = true;
         }
 

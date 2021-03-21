@@ -35,15 +35,14 @@ export class DashboardService {
 
   get_assign_by_id(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/drivers/read_drivers_assign_one.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+
       catchError(this.handleError)
     );
   }
 
   updateStatus(data) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/orders/update_order_one.php`, data, this.httpOptions).pipe(
-      retry(3),
-      
+
       catchError(this.handleError)
     );
 
@@ -52,34 +51,34 @@ export class DashboardService {
 
   get_driver_order_one(order_id, uid) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/orders/get_assigned_order.php?order_id=${order_id}&uid=${uid}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   dash(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/drivers/read_dash.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   readProfile(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/auth/read_profile_one.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
   createProfile(data){
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/create_profile.php`, data,this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   updateProfile(data){
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/update_profile.php`, data,this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }

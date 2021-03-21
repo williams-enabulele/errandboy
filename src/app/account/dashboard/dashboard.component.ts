@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../account.service';
 import { NzPlacementType } from 'ng-zorro-antd/dropdown';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -20,7 +21,10 @@ export class DashboardComponent implements OnInit {
   returnURL: any;
   datas: any = [];
   p: number = 1;
-
+  userRole:any;
+  customer:any;
+  cart:any;
+  showCart:any;
 
   constructor(
     private authservice: AuthService,
@@ -30,6 +34,19 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.userRole =this.authservice.decode();
+  //console.log(this.userRole);
+  if(this.userRole.data['role'] == "Customer"){
+    this.customer = true;
+  }
+  this.cart = localStorage.getItem("data");
+  if (this.cart === null) {
+    this.showCart = false;
+  }
+  else {
+    this.showCart = true;
+  }
 
 
     let params = this.route.snapshot.queryParams;

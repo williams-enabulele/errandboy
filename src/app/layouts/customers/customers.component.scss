@@ -1,11 +1,11 @@
 .logo {
-    height: 32px;
+    height: 50px;
     background: #fff;
     margin: 16px;
     background-image: url("/assets/images/errand-boy-logo.png");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
   }
 
   nz-header {
@@ -14,13 +14,16 @@
     margin-bottom: 30px;
   }
 
-  nz-content {
+  /* nz-content {
     margin: 0 16px;
+  } */
+  nz-content {
+    margin: 24px 16px 0;
   }
 
-  nz-breadcrumb {
+  /* nz-breadcrumb {
     margin: 16px 0;
-  }
+  } */
 
   .inner-content {
     padding: 24px;
@@ -28,11 +31,26 @@
     min-height: 360px;
   }
 
+  ::ng-deep .ant-layout-sider {
+    
+    background: #ffffff;
+  
+}
+
+::ng-deep .ant-layout-sider-zero-width-trigger {
+ 
+  background: #007bff9e;
+ 
+}
+
   nz-footer {
     text-align: center;
   }
+  .layout{
+    min-height: 100vh;
+  }
 
-.ant-layout-sider {
+/* .ant-layout-sider {
 position: relative;
 min-width: 0;
 background: #fff;
@@ -49,13 +67,6 @@ text-align: center;
 background: #007bff;
 cursor: pointer;
 transition: all .2s;
-}
-
-
-
-
-
-
-
+} */
 
 

@@ -20,6 +20,8 @@
                                 <th scope="col">Base Price</th>
                                 <th scope="col">Price Per Mile</th>
                                 <th scope="col">Service</th>
+                                <th scope="col">Charges (%)</th>
+                                <th scope="col">Tax (%)</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -29,6 +31,8 @@
                                 <td>{{price.base_price}}</td>
                                 <td>{{price.per_mile}}</td>
                                 <td>{{price.title}}</td>
+                                <td>{{price.charges}}</td>
+                                <td>{{price.tax}}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="control buttons">
                                         <button type="button" class="btn btn-primary" (click)="open(editPricing)"
@@ -70,11 +74,11 @@
                     <div class="form-group row mt-2">
                         <div class="col-sm-12">
                             <label for="base_price">Base Price</label>
-                            <div class="input-group">
+                            <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">$</span>
                                 </div>
-                                <input formControlName="base_price" type="text" class="form-control form-control-lg"
+                                <input formControlName="base_price" type="text" class="form-control"
                                     [ngClass]="{ 'is-invalid': displayError && formControls.base_price.errors, 'is-valid': formControls.base_price.valid }"
                                     (blur)="displayError=true" placeholder="Base Price">
 
@@ -88,7 +92,7 @@
 
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group row mt-2">
                         <div class="col-sm-12">
                             <label for="services">Errand Service</label>
                             <select class="form-control form-control-lg" formControlName="service" #service
@@ -103,12 +107,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group mt-4">
-                        <div class="input-group">
+                    <div class="form-group mt-2">
+                        <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$/mi</span>
                             </div>
-                            <input type="text" class="form-control form-control-lg" placeholder="Price Per Mile"
+                            <input type="text" class="form-control " placeholder="Price Per Mile"
                                 formControlName="per_mile" (blur)="displayError=true"
                                 [ngClass]="{ 'is-invalid': displayError && formControls.per_mile.errors, 'is-valid': formControls.per_mile.valid }">
                         </div>
@@ -118,7 +122,37 @@
                             <div *ngIf="formControls.per_mile.errors.required ">Enter price per mile to proceed</div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group mt-2">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <input type="text" class="form-control " placeholder="Tnx Charges"
+                                formControlName="charges" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && formControls.charges.errors, 'is-valid': formControls.charges.valid }">
+                        </div>
+
+
+                        <div *ngIf="displayError && formControls.charges.errors" class="invalid-feedback">
+                            <div *ngIf="formControls.charges.errors.required ">Enter transactional charges</div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <input type="text" class="form-control " placeholder="Tax"
+                                formControlName="tax" (blur)="displayError=true"
+                                [ngClass]="{ 'is-invalid': displayError && formControls.tax.errors, 'is-valid': formControls.tax.valid }">
+                        </div>
+
+
+                        <div *ngIf="displayError && formControls.tax.errors" class="invalid-feedback">
+                            <div *ngIf="formControls.tax.errors.required ">Enter tax</div>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
                         <div class="col-sm-12">
                             <button class="btn btn-block btn-lg btn-primary"
                                 [disabled]="addPriceForm.invalid">Submit</button>
@@ -182,6 +216,34 @@
                                     </div>
                                     <input type="text" class="form-control form-control-lg"
                                         [(ngModel)]="this.editPriceById.per_mile" id="per_mile" name="per_mile">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row ">
+                            <div class="col-sm-12">
+                                <label for="pricepermile">Charges</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="this.editPriceById.charges" id="charges" name="charges">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row ">
+                            <div class="col-sm-12">
+                                <label for="pricepermile">Tax</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-lg"
+                                        [(ngModel)]="this.editPriceById.tax" id="charges" name="tax">
                                 </div>
 
                             </div>

@@ -33,14 +33,14 @@ export class AccountService {
 
   dash(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/orders/read_order_one.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   updateStatus(data) {
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/orders/update_order_one.php`, data, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
 
@@ -48,20 +48,20 @@ export class AccountService {
 
 readProfile(id) {
     return this.http.get(`${environment.apiUrl}/errandboy_api/controllers/auth/read_profile_one.php?id=${id}`, this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
   createProfile(data){
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/create_profile.php`, data,this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }
 
   updateProfile(data){
     return this.http.post(`${environment.apiUrl}/errandboy_api/controllers/auth/update_profile.php`, data,this.httpOptions).pipe(
-      retry(3),
+      
       catchError(this.handleError)
     );
   }

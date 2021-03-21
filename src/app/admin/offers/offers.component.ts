@@ -19,6 +19,7 @@ export class OffersComponent implements OnInit {
   title: string;
   service: string;
   id: any;
+  type:any;
   discount: string;
   p: number = 1;
 
@@ -51,6 +52,7 @@ export class OffersComponent implements OnInit {
       title: ['', Validators.required],
       discount: ['', Validators.required],
       service: ['', Validators.required],
+      type: ['', Validators.required],
       valid_till: ['', Validators.required],
 
 
@@ -60,6 +62,7 @@ export class OffersComponent implements OnInit {
       title: ['', Validators.required],
       discount: ['', Validators.required],
       service: ['', Validators.required],
+      type: ['', Validators.required],
       id: ['', Validators.required],
       valid_till: ['', Validators.required],
 
@@ -106,7 +109,7 @@ export class OffersComponent implements OnInit {
 
 
 
-  deleteCoupon(id: any) {
+  deleteCoupon(id:any) {
     ////console.log(id);
     this.couponService.delete_coupon(id).subscribe(
       res => {
@@ -130,7 +133,7 @@ export class OffersComponent implements OnInit {
     );
   
   }
-
+ctype:any;
   getcouponById(id: any) {
     //console.log(id);
     this.editId = id;
@@ -140,6 +143,7 @@ export class OffersComponent implements OnInit {
         this.showEditValues = true;
         //console.log(res);
         this.editcouponById = res['records'][0];
+        this.ctype = res['records'][0]['type'];
       }
     );
   }
